@@ -27,13 +27,13 @@ export default function Navbar() {
       }`}
     >
       <div className="section-padding flex items-center justify-between">
-        <a href="#hero" className="flex items-center gap-2.5">
+        <a href="#hero" className="flex items-center gap-3 sm:gap-3.5">
           <img
             src="/images/girlup-logo.png"
             alt="Girl Up Logo"
-            className="h-8 sm:h-9 w-auto object-contain rounded-full"
+            className="h-11 sm:h-12 md:h-13 w-auto object-contain rounded-full shadow-sm"
           />
-          <span className="font-display text-lg sm:text-xl text-cream-50 tracking-wide font-medium">
+          <span className="font-display text-xl sm:text-2xl md:text-3xl text-cream-50 tracking-wide font-medium">
             Girl Up <span className="text-lavender-400">AU</span>
           </span>
         </a>
