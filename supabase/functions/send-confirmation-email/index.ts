@@ -74,7 +74,7 @@ serve(async (req: Request) => {
           <tr>
             <td style="background:linear-gradient(135deg,#4a1d8a,#7c3aed);padding:32px 40px;text-align:center;">
               <p style="margin:0 0 6px 0;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#c4b5fd;">Girl Up Andhra University</p>
-              <h1 style="margin:0;font-size:26px;font-weight:300;color:#ffffff;letter-spacing:1px;">Movie Night 🎬</h1>
+              <h1 style="margin:0;font-size:26px;font-weight:300;color:#ffffff;letter-spacing:1px;">Movie Mania 🎬</h1>
             </td>
           </tr>
 
@@ -83,7 +83,7 @@ serve(async (req: Request) => {
             <td style="padding:36px 40px;">
               <p style="margin:0 0 8px 0;font-size:16px;color:#1a1a2e;font-weight:600;">Hi ${name},</p>
               <p style="margin:0 0 24px 0;font-size:15px;color:#444;line-height:1.6;">
-                Thank you for registering for the Girl Up Andhra University Movie Night!
+                Thank you for registering for the Girl Up Andhra University Movie Mania!
                 We have successfully received your registration. Kindly check your details below.
               </p>
 
@@ -133,7 +133,7 @@ serve(async (req: Request) => {
               </table>
 
               <p style="margin:0;font-size:15px;color:#444;line-height:1.6;">
-                Thank you for registering. We look forward to seeing you at the movie night! 🎉
+                Thank you for registering. We look forward to seeing you at Movie Mania! 🎉
               </p>
             </td>
           </tr>
@@ -155,7 +155,7 @@ serve(async (req: Request) => {
     const emailText = `
 Hi ${name},
 
-Thank you for registering for the Girl Up Andhra University Movie Night!
+Thank you for registering for the Girl Up Andhra University Movie Mania!
 We have successfully received your registration. Kindly check your details below.
 
 Registration ID: ${registrationId}
@@ -178,7 +178,7 @@ Time:   3:30 PM onwards
 Venue:  Sri Ramaneni Kodandiramaiah Auditorium,
         opposite Law College, South Campus, Andhra University
 
-Thank you for registering. We look forward to seeing you at the movie night!
+Thank you for registering. We look forward to seeing you at Movie Mania! 🎉
 
 — Girl Up Andhra University
     `.trim();
@@ -193,7 +193,7 @@ Thank you for registering. We look forward to seeing you at the movie night!
       body: JSON.stringify({
         from: 'Girl Up Andhra University <onboarding@resend.dev>',
         to: [email],
-        subject: 'Registration Confirmed - Girl Up AU Movie Night',
+        subject: 'Registration Confirmed - Girl Up AU Movie Mania',
         html: emailHtml,
         text: emailText,
       }),

@@ -46,7 +46,7 @@ export default function Tickets() {
 
               <div className="mt-7">
                 <h3 className="font-display text-2xl text-cream-50 mb-1 font-medium">
-                  Movie Night Ticket
+                  Movie Mania Ticket
                 </h3>
                 <p className="text-sm text-cream-200/65 mb-5">Open to all. Snacks included — no extra charge.</p>
 

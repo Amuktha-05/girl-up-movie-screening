@@ -18,7 +18,7 @@ export const ORIGINAL_PRICE = 120; // Was ₹120, now Early Bird ₹79
 export const ticketOptions: TicketOption[] = [
   {
     id: 'student',
-    name: 'Movie Night Ticket',
+    name: 'Movie Mania Ticket',
     price: TICKET_PRICE,
     description: 'Open to all. Snacks included — no extra charge.',
     perks: [

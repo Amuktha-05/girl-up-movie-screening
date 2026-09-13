@@ -7,7 +7,7 @@ import moviePoster from '../../public/images/Movie-poster.png';
 export const eventData = {
   organization: 'Girl Up Andhra University',
   eyebrow: 'GIRL UP ANDHRA UNIVERSITY PRESENTS',
-  title: 'MOVIE NIGHT',
+  title: 'MOVIE MANIA',
   tagline: 'Cinema, conversations & a little bit of magic.',
   taglineSub: 'A special limited-seat screening.',
   date: 'Friday, 18 September 2026',
