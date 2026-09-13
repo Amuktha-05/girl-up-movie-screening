@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-midnight-950 text-cream-50 font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-lavender-600/40 text-cream-50;
+  }
+}
+
+@layer components {
+  /* Subtle film-grain tactile texture overlay — ultra lightweight, understated */
+  .cinema-grain {
+    background-image: radial-gradient(rgba(216, 201, 229, 0.035) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Editorial content card — rich plum background, refined lavender border, soft shadow */
+  .glass-card {
+    @apply bg-midnight-800/90 border border-lavender-700/30 rounded-xl shadow-xl shadow-midnight-950/50;
+  }
+
+  /* Small UI element — subtle plum tint with lavender rim */
+  .glass {
+    @apply bg-midnight-800/75 border border-lavender-700/35;
+  }
+
+  /* Retained for backward compat — typography-led, no harsh neon glow */
+  .glow-text {
+    /* Headings communicate through typography and subtle lavender accents */
+  }
+
+  /* Price / total — visible soft lavender */
+  .gold-text {
+    @apply text-lavender-300 font-medium;
+  }
+
+  /* Subtle lavender border glow for interactive focus states */
+  .glow-border {
+    box-shadow: 0 0 0 1px rgba(185, 164, 206, 0.35);
+  }
+
+  .section-padding {
+    @apply px-6 sm:px-8 lg:px-16 xl:px-24;
+  }
+
+  .heading-display {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .perspective {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+/* Custom scrollbar — restrained plum/lavender */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #130D1B;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a3470;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #785a9e;
+}
+
+/* Range input styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-track {
+  height: 3px;
+  border-radius: 4px;
+  background: rgba(185, 164, 206, 0.25);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #b9a4ce;
+  margin-top: -6px;
+}
