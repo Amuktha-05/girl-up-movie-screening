@@ -14,10 +14,10 @@ export default {
           500: '#5f4386',
           600: '#4a3470',
           700: '#3a2758',
-          800: '#291B36', // rich plum — primary card/surface background
-          850: '#22162E', // deep plum
-          900: '#1B1325', // dark purple
-          950: '#120D18', // deep purple-black
+          800: '#2b1b38', // rich plum card background
+          850: '#22152e', // deep plum
+          900: '#1b1226', // dark purple
+          950: '#150f1f', // deep dark purple-black
         },
         // Mature, visible lavender — the true accent
         lavender: {
@@ -85,9 +85,9 @@ export default {
         },
       },
       backgroundImage: {
-        // Rich multi-stop purple cinema gradient spanning the page
-        'cinema-gradient': 'linear-gradient(180deg, #130D1B 0%, #1A1125 15%, #251633 35%, #191024 55%, #291838 75%, #120D18 100%)',
-        'cinema-radial': 'radial-gradient(ellipse at center, #2E1A3C 0%, #1B1226 50%, #120D18 100%)',
+        // Deep purple cinema gradient spanning the page
+        'cinema-gradient': 'linear-gradient(180deg, #171023 0%, #201330 15%, #2c1a40 35%, #211333 55%, #311b47 75%, #150f1f 100%)',
+        'cinema-radial': 'radial-gradient(ellipse at center, #351d4d 0%, #201330 50%, #150f1f 100%)',
       },
     },
   },

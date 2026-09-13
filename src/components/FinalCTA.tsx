@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 export default function FinalCTA() {
   return (
     // Richest purple atmosphere — broad diffuse plum/lavender ambient light, no geometric shapes
-    <section className="relative py-16 sm:py-22 section-padding overflow-hidden bg-gradient-to-b from-[#1B1228] via-[#321A47] to-[#120D18]">
+    <section className="relative py-16 sm:py-22 section-padding overflow-hidden bg-gradient-to-b from-[#1e132e] via-[#321a48] to-[#150f1f]">
       {/* Broad ambient cinema lighting — completely diffuse */}
       <div className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[90vw] max-w-4xl h-[450px] rounded-full bg-lavender-600/15 blur-[140px]" />
 

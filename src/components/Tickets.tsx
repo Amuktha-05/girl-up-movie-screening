@@ -15,7 +15,7 @@ export default function Tickets() {
   const { selection, setTicketQty, total } = useBooking();
 
   return (
-    <section id="tickets" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#1C122C] via-[#29173E] to-[#1E132E]">
+    <section id="tickets" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#1c122b] via-[#2d1842] to-[#1d132d]">
       {/* Diffuse ambient central plum lighting — soft and seamless */}
       <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[75vw] max-w-3xl h-[450px] rounded-full bg-lavender-700/10 blur-[140px]" />
 

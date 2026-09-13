@@ -35,4 +35,16 @@ export const paymentData = {
   payeeName: 'Girl Up Andhra University',
   // Static uploaded QR image — same for all ticket quantities
   qrImage: '/images/payment-qr.png',
+  // Dynamic QR images mapped by total amount
+  qrImages: {
+    79: '/images/payment-qr-79.png',
+    158: '/images/payment-qr-158.png',
+    237: '/images/payment-qr-237.png',
+    316: '/images/payment-qr-316.png',
+  } as Record<number, string>,
 };
+
+export function getPaymentQrImage(totalAmount: number): string {
+  return paymentData.qrImages[totalAmount] ?? paymentData.qrImage;
+}
+

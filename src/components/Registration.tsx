@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, type ChangeEvent, type FormEvent } from 'react';
 import Reveal from '@/components/Reveal';
 import SeatMap from '@/components/SeatMap';
-import { paymentData, TICKET_PRICE } from '@/data/pricingData';
+import { paymentData, TICKET_PRICE, getPaymentQrImage } from '@/data/pricingData';
 import { supabase } from '@/lib/supabase';
 import {
   ArrowRight,
@@ -455,7 +455,7 @@ export default function Registration() {
               <div className="flex flex-col items-center mb-8">
                 <div className="p-4 bg-white rounded-2xl mb-4 shadow-xl border-2 border-lavender-300/30">
                   <img
-                    src={paymentData.qrImage}
+                    src={getPaymentQrImage(total)}
                     alt="UPI Payment QR Code"
                     className="w-48 h-48 object-contain"
                   />

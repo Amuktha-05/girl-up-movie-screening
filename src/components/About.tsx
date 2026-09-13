@@ -3,7 +3,7 @@ import { aboutData } from '@/data/eventData';
 
 export default function About() {
   return (
-    <section id="about" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#160E23] via-[#1F122E] to-[#180F26]">
+    <section id="about" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#181125] via-[#231435] to-[#1a1127]">
       <div className="relative max-w-4xl mx-auto">
         <Reveal>
           {/* Section heading */}

@@ -4,7 +4,7 @@ import { Clock, Film, Globe, Star } from 'lucide-react';
 
 export default function Movie() {
   return (
-    <section id="movie" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#180F26] via-[#251539] to-[#1B1229]">
+    <section id="movie" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#1a1127] via-[#28163b] to-[#1b1229]">
       {/* Diffuse ambient plum light behind the screening area — no shapes */}
       <div className="pointer-events-none absolute -left-20 top-1/4 w-[500px] h-[500px] rounded-full bg-lavender-700/10 blur-[130px]" />
 
@@ -21,10 +21,6 @@ export default function Movie() {
                   className="w-full h-auto aspect-[2/3] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-midnight-950/60 via-transparent to-transparent pointer-events-none" />
-                {/* Badge */}
-                <div className="absolute top-4 left-4 px-3.5 py-1.5 bg-lavender-400 text-midnight-950 text-xs font-semibold tracking-wider rounded-md shadow-md">
-                  {movieData.badge}
-                </div>
               </div>
             </div>
           </Reveal>

@@ -4,7 +4,7 @@ import { eventData } from '@/data/eventData';
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#140D1E] via-[#241438] to-[#160E23]">
+    <section id="hero" className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#171023] via-[#28163b] to-[#181125]">
       {/* Broad, soft ambient cinema illumination — no visible shapes, just atmospheric plum/lavender light */}
       <div className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[85vw] max-w-4xl h-[500px] rounded-full bg-lavender-700/15 blur-[140px]" />
 
@@ -17,7 +17,7 @@ export default function Hero() {
         style={{ backgroundImage: `url(${eventData.atmosphereImage})` }}
       />
       {/* Soft vignette for strong typographic contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-midnight-950/60 via-midnight-950/45 to-[#160E23] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-midnight-950/50 via-midnight-950/35 to-[#181125] pointer-events-none" />
 
       {/* Hero Content */}
       <div className="relative z-10 section-padding pt-20 pb-10 max-w-5xl mx-auto text-center">

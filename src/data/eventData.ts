@@ -9,7 +9,7 @@ export const eventData = {
   eyebrow: 'GIRL UP ANDHRA UNIVERSITY PRESENTS',
   title: 'MOVIE NIGHT',
   tagline: 'Cinema, conversations & a little bit of magic.',
-  taglineSub: 'A special limited-seat screening under the stars.',
+  taglineSub: 'A special limited-seat screening.',
   date: 'Friday, 18 September 2026',
   dateShort: '18 SEP 2026',
   time: '3:30 PM onwards',

@@ -18,7 +18,7 @@ const borderClasses = [
 
 export default function EventDetails() {
   return (
-    <section id="details" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#1B1229] via-[#28173C] to-[#1C122C]">
+    <section id="details" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#1b1229] via-[#2a173e] to-[#1c122b]">
       <div className="relative max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-8">

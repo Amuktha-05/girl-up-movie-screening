@@ -7,7 +7,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#191026] via-[#140D20] to-[#1B1228]">
+    <section id="faq" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#1d132d] via-[#1a1127] to-[#1e132e]">
       <div className="relative max-w-3xl mx-auto">
         <Reveal>
           {/* Section heading */}
