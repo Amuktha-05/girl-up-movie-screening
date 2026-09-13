@@ -2,7 +2,7 @@
 // EVENT DATA — Edit these values to update event details
 // ============================================================
 
-import moviePoster from '../../images/Movie-poster.png';
+import moviePoster from '../../public/images/Movie-poster.png';
 
 export const eventData = {
   organization: 'Girl Up Andhra University',
