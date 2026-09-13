@@ -13,7 +13,7 @@ export default function FinalCTA() {
           {/* Lavender accent separator line */}
           <div className="w-12 h-0.5 bg-lavender-400/80 mx-auto mb-6" />
           
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-cream-50 mb-4 text-balance">
+          <h2 className="font-display text-5xl sm:text-6xl md:text-7xl font-light text-cream-50 mb-4 text-balance">
             Ready for a little <span className="text-lavender-300 italic font-normal">movie magic?</span>
           </h2>
           

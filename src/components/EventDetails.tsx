@@ -25,7 +25,7 @@ export default function EventDetails() {
             <span className="block text-xs tracking-[0.25em] text-lavender-400 font-medium mb-3 uppercase">
               Event Details
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl font-light text-cream-50 text-balance">
+            <h2 className="font-display text-5xl sm:text-6xl font-light text-cream-50 text-balance">
               When &amp; Where the Magic Happens
             </h2>
           </div>

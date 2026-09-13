@@ -11,7 +11,7 @@ export default function FAQ() {
       <div className="relative max-w-3xl mx-auto">
         <Reveal>
           {/* Section heading */}
-          <h2 className="font-display text-4xl sm:text-5xl font-light text-cream-50 mb-8 text-balance">
+          <h2 className="font-display text-5xl sm:text-6xl font-light text-cream-50 mb-8 text-balance">
             Questions? We've Got Answers
           </h2>
         </Reveal>

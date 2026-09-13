@@ -30,7 +30,7 @@ export default function Hero() {
 
         {/* Title — editorial Cormorant Garamond */}
         <h1
-          className="font-display text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-cream-50 mb-5 animate-fade-up whitespace-nowrap"
+          className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-cream-50 mb-5 animate-fade-up whitespace-nowrap"
           style={{ animationDelay: '0.1s' }}
         >
           {eventData.title}

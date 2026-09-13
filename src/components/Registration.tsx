@@ -425,7 +425,7 @@ export default function Registration() {
 
             <div className="text-center mb-8">
               <p className="text-xs tracking-[0.25em] text-lavender-400 font-medium mb-4 uppercase">Payment</p>
-              <h2 className="font-display text-4xl sm:text-5xl font-light text-cream-50 mb-4">
+              <h2 className="font-display text-5xl sm:text-6xl font-light text-cream-50 mb-4">
                 Complete Your Registration
               </h2>
 
@@ -501,7 +501,7 @@ export default function Registration() {
 
             <div className="text-center mb-8">
               <p className="text-xs tracking-[0.25em] text-lavender-400 font-medium mb-4 uppercase">Payment Proof</p>
-              <h2 className="font-display text-4xl sm:text-5xl font-light text-cream-50 mb-4">
+              <h2 className="font-display text-5xl sm:text-6xl font-light text-cream-50 mb-4">
                 Upload Payment Proof
               </h2>
 
@@ -605,7 +605,7 @@ export default function Registration() {
 
             <div className="mb-6">
               <p className="text-xs tracking-[0.25em] text-lavender-400 font-medium mb-2 uppercase">Step 2</p>
-              <h2 className="font-display text-4xl sm:text-5xl font-light text-cream-50 mb-1">Select Your Seats</h2>
+              <h2 className="font-display text-5xl sm:text-6xl font-light text-cream-50 mb-1">Select Your Seats</h2>
               <p className="text-cream-200/65 text-sm">200 seats total · Max {MAX_SEATS} seats per booking · ₹{TICKET_PRICE} each</p>
             </div>
 
@@ -686,7 +686,7 @@ export default function Registration() {
 
           <div className="text-center mb-8">
             <p className="text-xs tracking-[0.25em] text-lavender-400 font-medium mb-4 uppercase">Registration</p>
-            <h2 className="font-display text-4xl sm:text-5xl font-light text-cream-50 mb-4 text-balance">
+            <h2 className="font-display text-5xl sm:text-6xl font-light text-cream-50 mb-4 text-balance">
               Reserve Your Seat
             </h2>
             <p className="text-cream-200/65 text-sm">Fill in your details to get started.</p>

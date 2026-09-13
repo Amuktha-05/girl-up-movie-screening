@@ -7,7 +7,7 @@ export default function About() {
       <div className="relative max-w-4xl mx-auto">
         <Reveal>
           {/* Section heading */}
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-cream-50 mb-6 text-balance">
+          <h2 className="font-display text-5xl sm:text-6xl md:text-7xl font-light text-cream-50 mb-6 text-balance">
             {aboutData.heading}
           </h2>
           <p className="text-base sm:text-lg text-cream-200/75 leading-relaxed font-light max-w-2xl">

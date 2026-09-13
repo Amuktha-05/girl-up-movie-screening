@@ -31,7 +31,7 @@ export default function Navbar() {
           <img
             src="/images/girlup-logo.png"
             alt="Girl Up Logo"
-            className="h-11 sm:h-12 md:h-13 w-auto object-contain rounded-full shadow-sm"
+            className="h-11 sm:h-12 md:h-13 w-auto object-contain rounded-lg shadow-sm"
           />
           <span className="font-display text-xl sm:text-2xl md:text-3xl text-cream-50 tracking-wide font-medium">
             Girl Up <span className="text-lavender-400">AU</span>

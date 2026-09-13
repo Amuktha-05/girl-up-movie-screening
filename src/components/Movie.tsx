@@ -33,7 +33,7 @@ export default function Movie() {
                 The Screening
               </span>
 
-              <h2 className="font-display text-4xl sm:text-5xl font-light text-cream-50 mb-3 text-balance">
+              <h2 className="font-display text-5xl sm:text-6xl font-light text-cream-50 mb-3 text-balance">
                 {movieData.title}
               </h2>
 
