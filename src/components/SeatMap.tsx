@@ -150,6 +150,11 @@ export default function SeatMap({
         <p className="text-[10px] tracking-[0.3em] text-lavender-400/60 uppercase">Screen</p>
       </div>
 
+      {/* Mobile-only swipe hint — hidden on md+ (desktop) */}
+      <p className="md:hidden text-center text-[11px] text-lavender-400/70 tracking-wide mb-2 select-none">
+        Swipe to see Section B →
+      </p>
+
       {/* Two section columns — scroll wrapper isolates horizontal scroll to the map only */}
       <div className="overflow-x-auto pb-2">
         <div className="flex gap-4 sm:gap-8 justify-center min-w-max mx-auto">
