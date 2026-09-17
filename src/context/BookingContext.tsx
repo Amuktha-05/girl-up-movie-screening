@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
-import { ticketOptions, TICKET_PRICE, getBundleTotal, type TicketOption } from '@/data/pricingData';
+import { ticketOptions, TICKET_PRICE, type TicketOption } from '@/data/pricingData';
 
 export interface BookingSelection {
   ticketId: string;
@@ -26,7 +26,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
 
   const setTicket = (id: string) => setSelection((s) => ({ ...s, ticketId: id }));
   const setTicketQty = (qty: number) =>
-    setSelection((s) => ({ ...s, ticketQty: Math.max(1, Math.min(4, qty)) }));
+    setSelection((s) => ({ ...s, ticketQty: Math.max(1, Math.min(10, qty)) }));
 
   const selectedTicket = useMemo(
     () => ticketOptions.find((t) => t.id === selection.ticketId),
@@ -34,7 +34,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   );
 
   const ticketTotal = useMemo(
-    () => getBundleTotal(selection.ticketQty),
+    () => TICKET_PRICE * selection.ticketQty,
     [selection.ticketQty],
   );
 

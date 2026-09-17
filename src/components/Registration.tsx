@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, type ChangeEvent, type FormEvent } from 'react';
 import Reveal from '@/components/Reveal';
 import SeatMap from '@/components/SeatMap';
-import { paymentData, TICKET_PRICE, getBundleTotal, getPaymentQrImage } from '@/data/pricingData';
+import { paymentData, TICKET_PRICE, getPaymentQrImage } from '@/data/pricingData';
 import { supabase } from '@/lib/supabase';
 import {
   ArrowRight,
@@ -140,7 +140,7 @@ export default function Registration() {
 
   // Derived
   const ticketQty = selectedSeats.length;
-  const total = getBundleTotal(ticketQty);
+  const total = ticketQty * TICKET_PRICE;
 
   // ── Input helpers ──────────────────────────────────────────────────────────
 
@@ -438,7 +438,7 @@ export default function Registration() {
                   <span className="font-display text-3xl text-lavender-200 font-medium">₹{total}</span>
                 </div>
                 <p className="text-xs text-cream-200/50 mt-1">
-                  {ticketQty} ticket{ticketQty > 1 ? 's' : ''} — {ticketQty === 1 ? 'Single' : ticketQty === 2 ? 'Duo' : ticketQty === 3 ? 'Trio' : 'Squad'} bundle (incl. FREE popcorn &amp; cool drink)
+                  {ticketQty} ticket{ticketQty > 1 ? 's' : ''} × ₹{TICKET_PRICE} (incl. FREE popcorn &amp; cool drink)
                 </p>
               </div>
             </div>
@@ -514,7 +514,7 @@ export default function Registration() {
                   <span className="font-display text-3xl text-lavender-200 font-medium">₹{total}</span>
                 </div>
                 <p className="text-xs text-cream-200/50 mt-1">
-                  {ticketQty} ticket{ticketQty > 1 ? 's' : ''} — {ticketQty === 1 ? 'Single' : ticketQty === 2 ? 'Duo' : ticketQty === 3 ? 'Trio' : 'Squad'} bundle (incl. FREE popcorn &amp; cool drink)
+                  {ticketQty} ticket{ticketQty > 1 ? 's' : ''} × ₹{TICKET_PRICE} (incl. FREE popcorn &amp; cool drink)
                 </p>
               </div>
             </div>
@@ -695,9 +695,8 @@ export default function Registration() {
           {/* Price callout */}
           <div className="mb-6 px-5 py-4 rounded-xl bg-lavender-900/30 border border-lavender-600/30 text-center">
             <p className="text-sm font-medium text-cream-50">
-              Single ₹79 · Duo ₹139 for 2 · Trio ₹179 for 3 · <span className="text-lavender-300">Squad ₹249 for 4</span>
+              ₹79 per seat — <span className="text-lavender-300">FREE Popcorn 🍿 + FREE Cool Drink 🥤 included</span>
             </p>
-            <p className="text-xs text-lavender-300/70 mt-1">FREE Popcorn 🍿 + FREE Cool Drink 🥤 included with every ticket</p>
           </div>
 
           <form onSubmit={handlePersonalSubmit} className="glass-card p-6 sm:p-10 space-y-5">

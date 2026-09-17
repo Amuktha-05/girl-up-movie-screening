@@ -1,7 +1,7 @@
 import Reveal from '@/components/Reveal';
 import { useBooking } from '@/context/BookingContext';
 import { Minus, Plus } from 'lucide-react';
-import { TICKET_PRICE, ORIGINAL_PRICE, getBundleTotal } from '@/data/pricingData';
+import { TICKET_PRICE, ORIGINAL_PRICE } from '@/data/pricingData';
 
 const benefits = [
   { icon: '🎬', text: 'Movie screening of Lokah' },
@@ -83,28 +83,6 @@ export default function Tickets() {
                     </li>
                   </ul>
                 </div>
-
-                {/* Bundle pricing offers */}
-                <div className="flex flex-wrap gap-2">
-                  {(
-                    [
-                      { label: 'Single', qty: 1 },
-                      { label: 'Duo', qty: 2 },
-                      { label: 'Trio', qty: 3 },
-                      { label: 'Squad', qty: 4 },
-                    ] as const
-                  ).map(({ label, qty }) => (
-                    <div
-                      key={label}
-                      className="flex-1 min-w-[calc(50%-4px)] px-3 py-2.5 rounded-lg bg-lavender-900/50 border border-lavender-600/35 text-center"
-                    >
-                      <p className="text-xs text-lavender-300/80 font-semibold uppercase tracking-wider">{label}</p>
-                      <p className="text-sm text-cream-50 font-medium mt-0.5">
-                        ₹{getBundleTotal(qty)}{qty > 1 ? ` for ${qty}` : ''}
-                      </p>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </Reveal>
@@ -156,10 +134,7 @@ export default function Tickets() {
             {/* Price breakdown */}
             <div className="space-y-2 mb-4">
               <div className="flex items-center justify-between text-sm text-cream-200/70">
-                <span>
-                  {selection.ticketQty === 1 ? 'Single' : selection.ticketQty === 2 ? 'Duo' : selection.ticketQty === 3 ? 'Trio' : 'Squad'}
-                  {' '}— {selection.ticketQty} ticket{selection.ticketQty > 1 ? 's' : ''} (incl. FREE snacks)
-                </span>
+                <span>{selection.ticketQty} × ₹{TICKET_PRICE} (includes FREE snacks)</span>
                 <span className="text-cream-100">₹{total}</span>
               </div>
             </div>
