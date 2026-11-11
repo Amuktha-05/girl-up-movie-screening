@@ -1,6 +1,7 @@
-// ============================================================
-// PRICING DATA — Single ticket at ₹79, snacks included
-// All prices are in Indian Rupees (₹)
+﻿// ============================================================
+// PRICING DATA â€” CHAMAK CHALLO âœ¨
+// Ticket pricing and categories to be confirmed before launch.
+// All prices are in Indian Rupees (â‚¹)
 // ============================================================
 
 export interface TicketOption {
@@ -12,20 +13,22 @@ export interface TicketOption {
   highlight?: boolean;
 }
 
-export const TICKET_PRICE = 79;
-export const ORIGINAL_PRICE = 120; // Was ₹120, now Early Bird ₹79
+// NOTE: TICKET_PRICE and categories are placeholder values.
+// Update these when official pricing is confirmed.
+export const TICKET_PRICE = 175;
+export const ORIGINAL_PRICE = 175;
 
 export const ticketOptions: TicketOption[] = [
   {
     id: 'student',
-    name: 'Movie Mania Ticket',
+    name: 'CHAMAK CHALLO Entry Ticket',
     price: TICKET_PRICE,
-    description: 'Open to all. Snacks included — no extra charge.',
+    description: 'Full access to all CHAMAK CHALLO experiences.',
     perks: [
-      'Entry to Lokah screening',
-      'FREE Popcorn 🍿',
-      'FREE Cool Drink 🥤',
-      'Reserved seating on a first-come basis',
+      'Entry to CHAMAK CHALLO event',
+      'DJ & Bollywood Dance Night access',
+      'Festive activities & games',
+      'Reserved seating',
     ],
     highlight: true,
   },
@@ -33,7 +36,7 @@ export const ticketOptions: TicketOption[] = [
 
 export const paymentData = {
   payeeName: 'Girl Up Andhra University',
-  // Static uploaded QR image — same for all ticket quantities
+  // Static uploaded QR image â€” same for all ticket quantities
   qrImage: '/images/payment-qr.png',
   // Dynamic QR images mapped by total amount
   qrImages: {

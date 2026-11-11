@@ -40,7 +40,7 @@ export default function AdminLogin() {
             <Lock className="w-5 h-5 text-lavender-300" />
           </div>
           <h1 className="text-xl font-semibold text-cream-50 mb-1">Admin Login</h1>
-          <p className="text-xs text-cream-300/50">Girl Up Andhra University · Movie Night</p>
+          <p className="text-xs text-cream-300/50">Girl Up Andhra University · CHAMAK CHALLO ✨</p>
         </div>
 
         {/* Form */}

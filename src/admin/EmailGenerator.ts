@@ -1,45 +1,30 @@
-import type { Registration, GeneratedEmail } from './types';
+﻿import type { Registration, GeneratedEmail } from './types';
 
-/**
- * Generates the confirmation email for a verified registration.
- * NO email is sent — this returns plain text for the admin to copy and paste.
- */
 export function generateConfirmationEmail(reg: Registration): GeneratedEmail {
-  const seatsDisplay = Array.isArray(reg.selected_seats) && reg.selected_seats.length > 0
-    ? reg.selected_seats.join(', ')
-    : 'N/A';
-
-  const subject = 'Registration Confirmation – Girl Up Andhra University Movie Night';
+  const subject = 'CHAMAK CHALLO Registration Confirmed | Girl Up Andhra University';
 
   const body = `Dear ${reg.name},
 
 Greetings from Girl Up Andhra University!
 
-We are pleased to confirm your registration for the Girl Up Andhra University Movie Night featuring Lokah: Chapter 1 – Chandra.
+We are pleased to confirm that your payment has been verified and your registration for CHAMAK CHALLO is confirmed.
 
-─────────────────────────────────────
 Registration Details
-─────────────────────────────────────
-Registration ID    : ${reg.registration_id}
-Name               : ${reg.name}
-Seats              : ${seatsDisplay}
-Number of Tickets  : ${reg.ticket_quantity}
-Amount Paid        : ₹${reg.total_amount}
+----------------------------------------
+Registration ID : ${reg.registration_id}
+Name            : ${reg.name}
+Amount Paid     : ₹${reg.total_amount}
 
-─────────────────────────────────────
 Event Details
-─────────────────────────────────────
-Date   : 18 September 2026
-Time   : 3:30 PM onwards
-Venue  : Sri Ramaneni Kodandiramaiah Auditorium, opposite Law College, South Campus, Andhra University
+----------------------------------------
+Event           : CHAMAK CHALLO: A Post-Diwali Celebration of Culture, Unity & Viksit Bharat
+Date            : 16 November 2026
+Time            : 4:00 PM – 7:00 PM
+Venue           : North Campus Basketball Court, Andhra University
 
-─────────────────────────────────────
+Please retain this email and your Registration ID for reference at the event.
 
-Your payment has been verified and your registration is confirmed.
-
-Please retain this email and your Registration ID for reference during the event.
-
-We look forward to seeing you at the screening!
+We look forward to celebrating with you!
 
 Regards,
 Girl Up Andhra University

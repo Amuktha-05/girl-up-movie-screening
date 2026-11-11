@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+﻿import { useState, useEffect, useMemo, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRegistrations } from './useRegistrations';
 import RegistrationRow from './RegistrationRow';
@@ -15,12 +15,12 @@ import {
 } from 'lucide-react';
 import type { Registration } from './types';
 
-// ── Filter state ──────────────────────────────────────────────────────────────
+// â”€â”€ Filter state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 type PaymentFilter = 'all' | 'pending' | 'verified' | 'rejected';
 type ConfirmationFilter = 'all' | 'not_sent' | 'sent';
 
-// ── Stats card ────────────────────────────────────────────────────────────────
+// â”€â”€ Stats card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function StatCard({ label, value, icon: Icon, colorClass }: {
   label: string; value: number; icon: React.FC<{ className?: string }>; colorClass: string;
@@ -38,7 +38,7 @@ function StatCard({ label, value, icon: Icon, colorClass }: {
   );
 }
 
-// ── Main dashboard ────────────────────────────────────────────────────────────
+// â”€â”€ Main dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function AdminDashboard() {
   const { registrations, loading, error, fetch, updatePaymentStatus, updateConfirmationStatus, getScreenshotUrl } = useRegistrations();
@@ -71,7 +71,7 @@ export default function AdminDashboard() {
     await supabase.auth.signOut();
   };
 
-  // ── Filtering / search (client-side) ───────────────────────────────────────
+  // â”€â”€ Filtering / search (client-side) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   const filtered = useMemo<Registration[]>(() => {
     const q = search.trim().toLowerCase();
@@ -91,7 +91,7 @@ export default function AdminDashboard() {
     });
   }, [registrations, search, paymentFilter, confirmationFilter]);
 
-  // ── Stats ─────────────────────────────────────────────────────────────────
+  // â”€â”€ Stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   const stats = useMemo(() => ({
     total: registrations.length,
@@ -100,7 +100,7 @@ export default function AdminDashboard() {
     rejected: registrations.filter((r) => r.payment_status === 'rejected').length,
   }), [registrations]);
 
-  // ── Wrapper callbacks (stable refs via useCallback not needed here — already memoized in hook) ──
+  // â”€â”€ Wrapper callbacks (stable refs via useCallback not needed here â€” already memoized in hook) â”€â”€
 
   const handleUpdatePayment = useCallback(
     (id: string, status: 'verified' | 'rejected') => updatePaymentStatus(id, status),
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
     [updateConfirmationStatus],
   );
 
-  // ── Render ────────────────────────────────────────────────────────────────
+  // â”€â”€ Render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   return (
     <div className="min-h-screen bg-midnight-950 font-body text-cream-50">
@@ -124,7 +124,7 @@ export default function AdminDashboard() {
           </div>
           <div className="min-w-0">
             <h1 className="text-sm font-semibold text-cream-50 truncate">Admin Dashboard</h1>
-            <p className="text-[10px] text-cream-300/40 truncate">Girl Up AU · Movie Night</p>
+            <p className="text-[10px] text-cream-300/40 truncate">Girl Up AU Â· CHAMAK CHALLO âœ¨</p>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">
@@ -171,7 +171,7 @@ export default function AdminDashboard() {
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by name, email or registration ID…"
+              placeholder="Search by name, email or registration IDâ€¦"
               className="w-full pl-9 pr-9 py-2.5 rounded-lg bg-midnight-800/80 border border-lavender-700/30 text-cream-50 placeholder-cream-300/25 text-sm outline-none transition-all duration-200 focus:border-lavender-400 focus:ring-1 focus:ring-lavender-400/20"
             />
             {search && (
@@ -242,7 +242,7 @@ export default function AdminDashboard() {
         {loading && registrations.length === 0 && (
           <div className="text-center py-20 text-cream-300/40">
             <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-3 text-lavender-500/50" />
-            <p className="text-sm">Loading registrations…</p>
+            <p className="text-sm">Loading registrationsâ€¦</p>
           </div>
         )}
 
@@ -254,7 +254,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* ── Mobile: card list ─────────────────────────────────────────────── */}
+        {/* â”€â”€ Mobile: card list â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         {isMobile && filtered.length > 0 && (
           <div className="space-y-3">
             {filtered.map((reg) => (
@@ -270,7 +270,7 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* ── Desktop: table ─────────────────────────────────────────────────── */}
+        {/* â”€â”€ Desktop: table â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         {!isMobile && filtered.length > 0 && (
           <div className="overflow-x-auto rounded-xl border border-lavender-700/25 bg-midnight-800/50">
             <table className="w-full min-w-[1200px] text-left border-collapse">
@@ -278,7 +278,7 @@ export default function AdminDashboard() {
                 <tr className="border-b border-lavender-700/30 bg-midnight-900/60">
                   {[
                     'Reg ID', 'Name', 'Email', 'Phone', 'College', 'Reg No.',
-                    'Seats', 'Qty', 'Amount', 'UPI Name', 'Payment', 'Confirmation', 'Created', 'Actions',
+                    'Amount', 'UPI Name', 'Payment', 'Confirmation', 'Created', 'Actions',
                   ].map((h) => (
                     <th
                       key={h}
@@ -308,3 +308,4 @@ export default function AdminDashboard() {
     </div>
   );
 }
+

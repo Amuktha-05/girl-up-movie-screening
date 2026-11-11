@@ -4,90 +4,113 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Purple-forward dark palette — reads as PURPLE & PLUM, not charcoal
+        // CHAMAK CHALLO — Vibrant Night-Festival Dark Blue / Indigo Palette
+        indigoNight: {
+          950: '#0C041B',
+          900: '#120727', // Base dark blue background
+          850: '#160830',
+          800: '#1B0C3C', // Card fill
+          750: '#200E46', // Hover card fill
+          700: '#251052', // Gradient stop
+        },
+        darkviolet: {
+          950: '#0E041A',
+          900: '#160727',
+          850: '#1D0A33',
+          800: '#250D3E',
+          700: '#341457',
+        },
+        royal: {
+          400: '#A16CD4',
+          500: '#8A54BD',
+          600: '#7949A5',
+          700: '#64388B',
+        },
+        fiery: {
+          400: '#FF6B3D',
+          500: '#F04C1E', // Fiery orange-red centre lighting
+          600: '#D93815',
+        },
+        brightgold: {
+          300: '#FFF0A3',
+          400: '#FFE169',
+          500: '#F3CA66', // Refined bright gold
+          600: '#E5B842',
+          700: '#C79624',
+        },
+        marigold: {
+          300: '#FFE082',
+          400: '#FFD54F',
+          500: '#FFB300', // Marigold yellow
+          600: '#FF8F00',
+        },
+        orangeaccent: {
+          400: '#FF8A3D',
+          500: '#FF6F1E',
+          600: '#E6560B',
+        },
+        darkbrown: '#2E1502',
+        ivory: {
+          DEFAULT: '#FFF8EF',
+          muted: 'rgba(255, 248, 239, 0.78)',
+          subtle: 'rgba(255, 248, 239, 0.55)',
+        },
+        // Indian Flag inspired accents
+        saffron: '#FF6F1E',
+        tricolorWhite: '#FFFFFF',
+        tricolorGreen: '#1A7A4C',
+
+        // Admin dashboard — same night-blue foundation
         midnight: {
-          50: '#ede8f2',
-          100: '#d4c9e2',
-          200: '#b5a2cc',
-          300: '#957cb5',
-          400: '#785a9e',
-          500: '#5f4386',
-          600: '#4a3470',
-          700: '#3a2758',
-          800: '#2b1b38', // rich plum card background
-          850: '#22152e', // deep plum
-          900: '#1b1226', // dark purple
-          950: '#150f1f', // deep dark purple-black
+          950: '#0C041B',
+          900: '#120727',
+          800: '#1B0C3C',
         },
-        // Mature, visible lavender — the true accent
         lavender: {
-          100: '#f4f0f9',
-          200: '#e8dff2',
-          300: '#D8C9E5', // light lavender (user-specified)
-          400: '#B9A4CE', // soft lavender (user-specified)
-          500: '#9B82B5', // muted lavender — primary accent (user-specified)
-          600: '#7e649b',
-          700: '#634e7a',
-          800: '#4a3a5a',
-          900: '#32283f',
-        },
-        blush: {
-          100: '#f7eff4',
-          200: '#eddbea',
-          300: '#dcc4d8',
-          400: '#c3a0bb',
-          500: '#a67a9a',
-          600: '#8a5f7f',
-          700: '#6e4865',
-          800: '#52364b',
-          900: '#382534',
+          300: '#E4C8FF',
+          400: '#C084FC',
+          500: '#A16CD4',
+          600: '#7949A5',
+          700: '#5C3D86',
+          800: '#341457',
+          900: '#1D0A33',
         },
         cream: {
-          50: '#f7f1e8',
-          100: '#f0e8d8',
-          200: '#e5d5b8',
-          300: '#d4be94',
-          400: '#bfa06e',
-          500: '#a0804c',
-          600: '#7e6238',
-          700: '#5e4929',
-          800: '#41321c',
-          900: '#281f10',
+          50: '#FFF8EF',
+          200: '#FFF1DE',
+          300: '#E8D9C8',
+        },
+        // Legacy palette support
+        wine: {
+          500: '#702C45',
+          600: '#5c2439',
+          700: '#481c2d',
+          800: '#341421',
+        },
+        gold: {
+          400: '#E5C68D',
+          500: '#F3CA66',
+          600: '#C39850',
         },
       },
       fontFamily: {
         display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        body: ['"Poppins"', 'system-ui', 'sans-serif'],
+        body: ['"DM Sans"', 'system-ui', 'sans-serif'],
       },
       animation: {
-        'float-slow': 'float 8s ease-in-out infinite',
-        'float-slower': 'float 12s ease-in-out infinite',
-        'twinkle': 'twinkle 5s ease-in-out infinite',
+        'spin-slow': 'spin 90s linear infinite',
         'fade-up': 'fadeUp 0.8s ease-out forwards',
-        'scale-in': 'scaleIn 0.6s ease-out forwards',
+        'pulse-warm': 'pulseWarm 5s ease-in-out infinite',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0) translateX(0)' },
-          '50%': { transform: 'translateY(-20px) translateX(10px)' },
-        },
-        twinkle: {
-          '0%, 100%': { opacity: '0.2', transform: 'scale(0.8)' },
-          '50%': { opacity: '0.65', transform: 'scale(1.1)' },
+        pulseWarm: {
+          '0%, 100%': { opacity: '0.18', transform: 'scale(1)' },
+          '50%': { opacity: '0.32', transform: 'scale(1.06)' },
         },
         fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '0%': { opacity: '0', transform: 'translateY(24px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        scaleIn: {
-          '0%': { opacity: '0', transform: 'scale(0.9)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
-        },
-      },
-      backgroundImage: {
-        // Deep purple cinema gradient spanning the page
-        'cinema-gradient': 'linear-gradient(180deg, #171023 0%, #201330 15%, #2c1a40 35%, #211333 55%, #311b47 75%, #150f1f 100%)',
-        'cinema-radial': 'radial-gradient(ellipse at center, #351d4d 0%, #201330 50%, #150f1f 100%)',
       },
     },
   },

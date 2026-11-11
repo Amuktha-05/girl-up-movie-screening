@@ -1,155 +1,136 @@
 import Reveal from '@/components/Reveal';
-import { useBooking } from '@/context/BookingContext';
-import { Minus, Plus } from 'lucide-react';
-import { TICKET_PRICE, ORIGINAL_PRICE } from '@/data/pricingData';
-
-const benefits = [
-  { icon: '🎬', text: 'Movie screening of Lokah' },
-  { icon: '🍿', text: 'FREE Popcorn' },
-  { icon: '🥤', text: 'FREE Cool Drink' },
-  { icon: '🎟️', text: `Early Bird Ticket at ₹${TICKET_PRICE}/-` },
-  { icon: '✨', text: 'A fun movie evening with friends' },
-];
+import { Bell, ArrowRight, CheckCircle2, Ticket } from 'lucide-react';
+import { CornerFiligree, MandalaMotif } from './FestiveMotifs';
 
 export default function Tickets() {
-  const { selection, setTicketQty, total } = useBooking();
-
   return (
-    <section id="tickets" className="relative py-14 sm:py-20 section-padding overflow-hidden bg-gradient-to-b from-[#1c122b] via-[#2d1842] to-[#1d132d]">
-      {/* Diffuse ambient central plum lighting — soft and seamless */}
-      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[75vw] max-w-3xl h-[450px] rounded-full bg-lavender-700/10 blur-[140px]" />
+    <section
+      id="tickets"
+      className="relative py-24 sm:py-32 section-padding overflow-hidden"
+      style={{ backgroundColor: '#120727' }}
+    >
+      {/* Ambient Lighting & Depth */}
+      <div
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-3xl h-[60vh] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 196, 70, 0.2) 0%, rgba(255, 70, 150, 0.12) 42%, transparent 76%)',
+          filter: 'blur(50px)',
+        }}
+      />
+      <div className="pointer-events-none absolute -right-20 top-20 w-[420px] h-[420px] opacity-[0.08]">
+        <MandalaMotif className="w-full h-full" />
+      </div>
 
-      <div className="relative max-w-6xl mx-auto">
+      <div className="relative max-w-4xl mx-auto">
+        {/* Section Header */}
         <Reveal>
-          <div className="mb-8">
-            <span className="block text-xs tracking-[0.25em] text-lavender-400 font-medium mb-3 uppercase">
-              Tickets
-            </span>
-            <h2 className="font-display text-5xl sm:text-6xl font-light text-cream-50 mb-2.5 text-balance">
-              Reserve Your Seat
+          <div className="text-center mb-14 sm:mb-16">
+            <span className="section-eyebrow block mb-3">Participation &amp; Entry</span>
+            <h2 className="font-display text-4xl sm:text-5xl font-semibold text-[#FFF8EF] leading-tight">
+              Secure Your <span className="heading-highlight italic">Entry Pass</span>
             </h2>
-            <p className="text-cream-200/65 text-sm max-w-lg">
-              One ticket. One price. Snacks included — no hidden extras.
+            <div className="gold-rule mx-auto my-4" />
+            <p className="font-body text-[17px] sm:text-[18px] text-[#FFF8EF]/80 font-light max-w-xl mx-auto leading-relaxed">
+              CHAMAK CHALLO is an open-air celebration welcoming Andhra University students, friends, and festive enthusiasts.
             </p>
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          {/* ── Ticket card ─────────────────────────────────────── */}
-          <Reveal>
-            <div className="w-full text-left p-6 sm:p-8 rounded-xl border border-lavender-400 bg-lavender-900/35 ring-1 ring-lavender-400/40 shadow-2xl shadow-lavender-950/60 relative overflow-hidden">
+        {/* ── Entry Pass Feature Card (Royal Indigo Fill, Refined Bright Gold Border, White Text) ── */}
+        <Reveal delay={120}>
+          <div className="relative feature-card tone-saffron accent-gold p-8 sm:p-12 overflow-hidden shadow-2xl">
+            <CornerFiligree className="absolute top-4 left-4 w-12 h-12 opacity-50" />
+            <CornerFiligree className="absolute bottom-4 right-4 w-12 h-12 opacity-50" style={{ transform: 'scale(-1)' }} />
 
-              {/* Early Bird badge */}
-              <div className="absolute top-0 left-0 px-4 py-1.5 bg-lavender-400 text-midnight-950 text-xs font-bold tracking-wider rounded-br-lg shadow-sm">
-                🐣 EARLY BIRD OFFER
-              </div>
-
-              <div className="mt-7">
-                <h3 className="font-display text-2xl text-cream-50 mb-1 font-medium">
-                  Movie Mania Ticket
-                </h3>
-                <p className="text-sm text-cream-200/65 mb-5">Open to all. Snacks included — no extra charge.</p>
-
-                {/* Pricing: crossed-out original + new price */}
-                <div className="flex items-end gap-3 mb-4">
-                  <div className="flex flex-col">
-                    <span className="text-xs text-cream-300/50 tracking-wider uppercase mb-0.5">Was</span>
-                    <span className="text-xl text-cream-300/50 line-through font-display">
-                      ₹{ORIGINAL_PRICE}/-
-                    </span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs text-lavender-400 tracking-wider uppercase mb-0.5 font-semibold">Now</span>
-                    <div className="flex items-baseline gap-0.5">
-                      <span className="text-lavender-400 font-display text-2xl font-light">₹</span>
-                      <span className="text-5xl font-display text-cream-50 font-light leading-none">{TICKET_PRICE}</span>
-                      <span className="text-lavender-300/70 text-base ml-1">/-</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* FREE snacks callout */}
-                <div className="mb-5 px-4 py-3 rounded-lg bg-lavender-800/50 border border-lavender-600/40">
-                  <p className="text-xs text-lavender-300/80 uppercase tracking-wider font-semibold mb-2">Includes</p>
-                  <ul className="space-y-1.5">
-                    <li className="flex items-center gap-2 text-sm text-cream-100">
-                      <span className="text-lavender-400 font-bold shrink-0">✓</span> Movie entry
-                    </li>
-                    <li className="flex items-center gap-2 text-sm text-cream-100">
-                      <span className="text-lavender-400 font-bold shrink-0">✓</span> FREE Popcorn 🍿
-                    </li>
-                    <li className="flex items-center gap-2 text-sm text-cream-100">
-                      <span className="text-lavender-400 font-bold shrink-0">✓</span> FREE Cool Drink 🥤
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* ── Benefits list ────────────────────────────────────── */}
-          <Reveal delay={150}>
-            <div className="glass-card p-6 sm:p-7">
-              <p className="text-xs tracking-[0.25em] text-lavender-400 font-medium mb-4 uppercase">What You Get</p>
-              <ul className="space-y-3">
-                {benefits.map((b) => (
-                  <li key={b.text} className="flex items-start gap-3">
-                    <span className="text-xl shrink-0">{b.icon}</span>
-                    <span className="text-sm text-cream-100/90 leading-relaxed">{b.text}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* ── Quantity + Total summary ─────────────────────────── */}
-        <Reveal>
-          <div className="glass-card p-5 sm:p-7 max-w-2xl mt-8">
-            <div className="flex items-center justify-between mb-5 pb-5 border-b border-lavender-700/35">
-              <div>
-                <p className="text-xs tracking-wider text-lavender-300/80 uppercase mb-1 font-medium">Ticket Quantity</p>
-                <p className="text-sm text-cream-200/65">How many seats would you like?</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setTicketQty(selection.ticketQty - 1)}
-                  disabled={selection.ticketQty <= 1}
-                  className="w-8 h-8 border border-lavender-700/50 flex items-center justify-center hover:bg-lavender-800/40 hover:border-lavender-400 transition-colors disabled:opacity-30 disabled:cursor-not-allowed rounded-md"
-                >
-                  <Minus className="w-3.5 h-3.5 text-cream-100" />
-                </button>
-                <span className="text-cream-50 font-display text-2xl w-10 text-center font-medium">
-                  {selection.ticketQty}
+            <div className="text-center max-w-2xl mx-auto">
+              {/* Badge */}
+              <div className="jewel-chip inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6">
+                <Ticket className="w-4 h-4 text-[#F3CA66]" />
+                <span className="font-body font-semibold text-[14px] tracking-wider text-[#F3CA66] uppercase">
+                  Official Entry Pass
                 </span>
-                <button
-                  onClick={() => setTicketQty(selection.ticketQty + 1)}
-                  className="w-8 h-8 border border-lavender-700/50 flex items-center justify-center hover:bg-lavender-800/40 hover:border-lavender-400 transition-colors rounded-md"
+              </div>
+
+              {/* Title & Description */}
+              <h3 className="font-display text-[28px] sm:text-[34px] font-semibold text-[#FFFFFF] mb-4">
+                Registration Opening Soon
+              </h3>
+              <p className="font-body text-[17px] text-[#FFF8EF]/80 font-light mb-9 leading-relaxed max-w-lg mx-auto">
+                Participation passes will be released online shortly. Complete your early interest registration below to secure priority access.
+              </p>
+
+              {/* Included Highlights Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 text-left">
+                {[
+                  {
+                    title: 'Full Festival Access',
+                    desc: 'Festive Bazaar, carnival games, photo booths & Mehendi station.',
+                    tone: 'border-[#7EB6FF]/40 bg-[#142454]/80',
+                  },
+                  {
+                    title: 'Live DJ & Dance Night',
+                    desc: 'Bollywood, Telugu & Punjabi beats on the open court.',
+                    tone: 'border-[#FF4DB8]/40 bg-[#3a1448]/75',
+                  },
+                  {
+                    title: 'Contests & Awards',
+                    desc: 'Mr. & Ms. Chamak Challo, hook-step challenge & giveaways.',
+                    tone: 'border-[#FFB020]/45 bg-[#3a2410]/80',
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.title}
+                    className={`p-5 rounded-xl border backdrop-blur-sm ${item.tone}`}
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-[#F3CA66] mb-2.5" />
+                    <h4 className="font-display text-[18px] font-semibold text-[#FFFFFF] mb-1">
+                      {item.title}
+                    </h4>
+                    <p className="font-body text-[15px] text-[#FFF8EF]/75 font-light leading-snug">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Event Timing Bar */}
+              <div className="jewel-chip grid grid-cols-3 gap-0 rounded-xl mb-10 divide-x divide-[#F3CA66]/25">
+                {[
+                  { label: 'Date', val: '16 Nov 2026' },
+                  { label: 'Timing', val: '4 – 7 PM' },
+                  { label: 'Venue', val: 'AU North Campus' },
+                ].map((f) => (
+                  <div key={f.label} className="py-4 px-2 text-center">
+                    <p className="font-body font-semibold text-[14px] text-[#F3CA66] uppercase tracking-wider mb-0.5">
+                      {f.label}
+                    </p>
+                    <p className="font-display text-[17px] sm:text-[19px] font-semibold text-[#FFFFFF]">
+                      {f.val}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href="#register"
+                  className="btn-primary w-full sm:w-auto"
                 >
-                  <Plus className="w-3.5 h-3.5 text-cream-100" />
-                </button>
+                  Enter Registration Form
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://www.instagram.com/girlup.au/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary w-full sm:w-auto"
+                >
+                  <Bell className="w-4 h-4 text-[#F3CA66]" />
+                  Follow @girlup.au
+                </a>
               </div>
             </div>
-
-            {/* Price breakdown */}
-            <div className="space-y-2 mb-4">
-              <div className="flex items-center justify-between text-sm text-cream-200/70">
-                <span>{selection.ticketQty} × ₹{TICKET_PRICE} (includes FREE snacks)</span>
-                <span className="text-cream-100">₹{total}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between pt-4 border-t border-lavender-700/35">
-              <span className="font-display text-xl text-cream-50">TOTAL</span>
-              <span className="font-display text-3xl text-lavender-200 font-medium">₹{total}</span>
-            </div>
-
-            <a
-              href="#register"
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-lavender-400 hover:bg-lavender-300 text-midnight-950 font-semibold text-sm tracking-wide transition-all duration-300 shadow-lg shadow-lavender-950/50"
-            >
-              Continue to Registration
-            </a>
           </div>
         </Reveal>
       </div>

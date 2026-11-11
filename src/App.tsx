@@ -2,7 +2,7 @@ import { BookingProvider } from '@/context/BookingContext';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
-import Movie from '@/components/Movie';
+import Attractions from '@/components/Attractions';
 import EventDetails from '@/components/EventDetails';
 import Tickets from '@/components/Tickets';
 import Registration from '@/components/Registration';
@@ -20,14 +20,15 @@ function App() {
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
   }, []);
+
   return (
     <BookingProvider>
-      <div className="relative min-h-screen bg-cinema-gradient cinema-grain text-cream-50">
+      <div className="relative min-h-screen text-ivory" style={{ backgroundColor: '#120727' }}>
         <Navbar />
         <main>
           <Hero />
           <About />
-          <Movie />
+          <Attractions />
           <EventDetails />
           <Tickets />
           <Registration />

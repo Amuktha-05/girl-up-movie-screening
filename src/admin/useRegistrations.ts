@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+﻿import { useState, useCallback } from 'react';
 import { supabase } from '@/lib/supabase';
 import type { Registration, PaymentStatus, ConfirmationStatus } from './types';
 
@@ -12,6 +12,8 @@ interface UseRegistrationsReturn {
   getScreenshotUrl: (path: string) => Promise<string | null>;
 }
 
+const TABLE = 'chamak_challo_registrations';
+
 export function useRegistrations(): UseRegistrationsReturn {
   const [registrations, setRegistrations] = useState<Registration[]>([]);
   const [loading, setLoading] = useState(false);
@@ -20,9 +22,10 @@ export function useRegistrations(): UseRegistrationsReturn {
   const fetch = useCallback(async () => {
     setLoading(true);
     setError(null);
+
     try {
       const { data, error: fetchError } = await supabase
-        .from('registrations')
+        .from(TABLE)
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -38,17 +41,18 @@ export function useRegistrations(): UseRegistrationsReturn {
   const updatePaymentStatus = useCallback(
     async (registrationId: string, status: PaymentStatus) => {
       const { error: updateError } = await supabase
-        .from('registrations')
+        .from(TABLE)
         .update({ payment_status: status })
         .eq('registration_id', registrationId);
 
       if (updateError) throw new Error(updateError.message);
 
-      // Update local state immediately for responsiveness
-      setRegistrations((prev) =>
-        prev.map((r) =>
-          r.registration_id === registrationId ? { ...r, payment_status: status } : r,
-        ),
+      setRegistrations(prev =>
+        prev.map(r =>
+          r.registration_id === registrationId
+            ? { ...r, payment_status: status }
+            : r
+        )
       );
     },
     [],
@@ -57,33 +61,39 @@ export function useRegistrations(): UseRegistrationsReturn {
   const updateConfirmationStatus = useCallback(
     async (registrationId: string, status: ConfirmationStatus) => {
       const { error: updateError } = await supabase
-        .from('registrations')
+        .from(TABLE)
         .update({ confirmation_status: status })
         .eq('registration_id', registrationId);
 
       if (updateError) throw new Error(updateError.message);
 
-      setRegistrations((prev) =>
-        prev.map((r) =>
-          r.registration_id === registrationId ? { ...r, confirmation_status: status } : r,
-        ),
+      setRegistrations(prev =>
+        prev.map(r =>
+          r.registration_id === registrationId
+            ? { ...r, confirmation_status: status }
+            : r
+        )
       );
     },
     [],
   );
 
-  /**
-   * Generate a short-lived signed URL (60 s) for a payment screenshot.
-   * The bucket is private — never uses a public URL.
-   */
   const getScreenshotUrl = useCallback(async (path: string): Promise<string | null> => {
     const { data, error: urlError } = await supabase.storage
       .from('payment-screenshots')
-      .createSignedUrl(path, 60); // 60-second signed URL
+      .createSignedUrl(path, 60);
 
     if (urlError || !data?.signedUrl) return null;
     return data.signedUrl;
   }, []);
 
-  return { registrations, loading, error, fetch, updatePaymentStatus, updateConfirmationStatus, getScreenshotUrl };
+  return {
+    registrations,
+    loading,
+    error,
+    fetch,
+    updatePaymentStatus,
+    updateConfirmationStatus,
+    getScreenshotUrl,
+  };
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import {
   CheckCircle2,
   XCircle,
@@ -23,7 +23,7 @@ interface Props {
   isMobile?: boolean;
 }
 
-// ── Tiny helpers ─────────────────────────────────────────────────────────────
+// â”€â”€ Tiny helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function PaymentBadge({ status }: { status: Registration['payment_status'] }) {
   const map = {
@@ -85,7 +85,7 @@ function CopyBtn({ text, label, id }: { text: string; label: string; id: string 
   );
 }
 
-// ── Main component ────────────────────────────────────────────────────────────
+// â”€â”€ Main component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function RegistrationRow({
   reg,
@@ -104,7 +104,7 @@ export default function RegistrationRow({
 
   const generatedEmail = showEmailPanel ? generateConfirmationEmail(reg) : null;
 
-  // ── Actions ──────────────────────────────────────────────────────────────
+  // â”€â”€ Actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   const handleVerify = async () => {
     if (!window.confirm(`Verify payment for ${reg.name} (${reg.registration_id})?\n\nThis will mark payment as VERIFIED.`)) return;
@@ -169,7 +169,7 @@ export default function RegistrationRow({
     }
   };
 
-  // ── Mobile card view ──────────────────────────────────────────────────────
+  // â”€â”€ Mobile card view â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   if (isMobile) {
     return (
@@ -198,12 +198,9 @@ export default function RegistrationRow({
 
         {/* Summary */}
         <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-          <span className="text-cream-300/50">Seats</span>
-          <span className="text-cream-100 font-medium">{Array.isArray(reg.selected_seats) ? reg.selected_seats.join(', ') : '—'}</span>
-          <span className="text-cream-300/50">Tickets</span>
-          <span className="text-cream-100">{reg.ticket_quantity}</span>
+          
           <span className="text-cream-300/50">Amount</span>
-          <span className="text-cream-100">₹{reg.total_amount}</span>
+          <span className="text-cream-100">â‚¹{reg.total_amount}</span>
         </div>
 
         {/* Expanded details */}
@@ -230,7 +227,7 @@ export default function RegistrationRow({
     );
   }
 
-  // ── Desktop table row ─────────────────────────────────────────────────────
+  // â”€â”€ Desktop table row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   return (
     <>
@@ -253,28 +250,21 @@ export default function RegistrationRow({
         </td>
         {/* College */}
         <td className="px-3 py-3 max-w-[140px]">
-          <p className="text-xs text-cream-200/70 truncate" title={reg.college_name ?? ''}>{reg.college_name ?? '—'}</p>
+          <p className="text-xs text-cream-200/70 truncate" title={reg.college_name ?? ''}>{reg.college_name ?? 'â€”'}</p>
           <p className="text-[10px] text-cream-300/40 truncate">{reg.department ?? ''}</p>
         </td>
         {/* Reg no */}
         <td className="px-3 py-3 whitespace-nowrap">
-          <p className="text-xs text-cream-200/70 font-mono">{reg.college_registration_number ?? '—'}</p>
+          <p className="text-xs text-cream-200/70 font-mono">{reg.college_registration_number ?? 'â€”'}</p>
         </td>
-        {/* Seats */}
-        <td className="px-3 py-3 whitespace-nowrap">
-          <p className="text-xs text-cream-100">{Array.isArray(reg.selected_seats) ? reg.selected_seats.join(', ') : '—'}</p>
-        </td>
-        {/* Qty */}
-        <td className="px-3 py-3 text-center">
-          <p className="text-xs text-cream-200/80">{reg.ticket_quantity}</p>
-        </td>
+        
         {/* Amount */}
         <td className="px-3 py-3 whitespace-nowrap text-right">
-          <p className="text-xs font-medium text-lavender-300">₹{reg.total_amount}</p>
+          <p className="text-xs font-medium text-lavender-300">â‚¹{reg.total_amount}</p>
         </td>
         {/* UPI Name */}
         <td className="px-3 py-3 max-w-[120px]">
-          <p className="text-xs text-cream-200/60 truncate">{reg.upi_display_name ?? '—'}</p>
+          <p className="text-xs text-cream-200/60 truncate">{reg.upi_display_name ?? 'â€”'}</p>
         </td>
         {/* Payment Status */}
         <td className="px-3 py-3 whitespace-nowrap">
@@ -304,7 +294,7 @@ export default function RegistrationRow({
       {/* Expanded action row */}
       {expanded && (
         <tr className="border-b border-lavender-700/15 bg-midnight-900/40">
-          <td colSpan={14} className="px-4 py-4">
+          <td colSpan={12} className="px-4 py-4">
             <DetailGrid reg={reg} />
             <div className="mt-3">
               <ActionPanel
@@ -329,19 +319,19 @@ export default function RegistrationRow({
   );
 }
 
-// ── Shared sub-components ─────────────────────────────────────────────────────
+// â”€â”€ Shared sub-components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function DetailGrid({ reg }: { reg: Registration }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-1.5 text-xs mb-3">
       <Field label="Email" value={reg.email} />
       <Field label="Phone" value={reg.phone} />
-      <Field label="College" value={reg.college_name ?? '—'} />
-      <Field label="Department" value={reg.department ?? '—'} />
-      <Field label="Reg. Number" value={reg.college_registration_number ?? '—'} mono />
-      <Field label="UPI Name" value={reg.upi_display_name ?? '—'} />
-      <Field label="Seats" value={Array.isArray(reg.selected_seats) ? reg.selected_seats.join(', ') : '—'} />
-      <Field label="Amount" value={`₹${reg.total_amount}`} />
+      <Field label="College" value={reg.college_name ?? 'â€”'} />
+      <Field label="Department" value={reg.department ?? 'â€”'} />
+      <Field label="Reg. Number" value={reg.college_registration_number ?? 'â€”'} mono />
+      <Field label="UPI Name" value={reg.upi_display_name ?? 'â€”'} />
+      
+      <Field label="Amount" value={`â‚¹${reg.total_amount}`} />
     </div>
   );
 }
@@ -406,7 +396,7 @@ function ActionPanel({
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-midnight-700/60 hover:bg-midnight-600/60 border border-lavender-700/30 text-lavender-300 hover:text-lavender-200 text-xs font-medium transition-all duration-150 disabled:opacity-50"
           >
             <ImageIcon className="w-3.5 h-3.5" />
-            {screenshotLoading ? 'Loading…' : 'View Payment Screenshot'}
+            {screenshotLoading ? 'Loadingâ€¦' : 'View Payment Screenshot'}
           </button>
         )}
         {screenshotError && <span className="text-xs text-red-400">{screenshotError}</span>}
@@ -471,7 +461,7 @@ function ActionPanel({
         {/* Loading indicator */}
         {actionLoading && (
           <span className="inline-flex items-center gap-1 text-xs text-cream-300/50">
-            <Clock className="w-3.5 h-3.5 animate-spin" /> Updating…
+            <Clock className="w-3.5 h-3.5 animate-spin" /> Updatingâ€¦
           </span>
         )}
       </div>
@@ -481,7 +471,7 @@ function ActionPanel({
         <div className="mt-3 bg-midnight-900/60 border border-lavender-700/20 rounded-xl p-4 space-y-3">
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold text-lavender-300 uppercase tracking-wider">Generated Confirmation Email</p>
-            <p className="text-[10px] text-cream-300/40">⚠ Do NOT send from this dashboard — copy and send manually from Gmail</p>
+            <p className="text-[10px] text-cream-300/40">âš  Do NOT send from this dashboard â€” copy and send manually from Gmail</p>
           </div>
 
           {/* Recipient */}
@@ -533,3 +523,4 @@ function ActionPanel({
     </div>
   );
 }
+

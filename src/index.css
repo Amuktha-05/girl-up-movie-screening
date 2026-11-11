@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,56 +7,232 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-size: 16px;
   }
 
   body {
-    @apply bg-midnight-950 text-cream-50 font-body antialiased;
+    @apply font-body antialiased;
+    background-color: #120727;
+    color: #FFF8EF;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    @apply bg-lavender-600/40 text-cream-50;
+    background: rgba(243, 202, 102, 0.35);
+    color: #FFF8EF;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    text-rendering: optimizeLegibility;
+  }
+
+  p {
+    line-height: 1.75;
   }
 }
 
 @layer components {
-  /* Subtle film-grain tactile texture overlay — ultra lightweight, understated */
-  .cinema-grain {
-    background-image: radial-gradient(rgba(216, 201, 229, 0.035) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
 
-  /* Editorial content card — rich plum background, refined lavender border, soft shadow */
-  .glass-card {
-    @apply bg-midnight-800/90 border border-lavender-700/30 rounded-xl shadow-xl shadow-midnight-950/50;
-  }
-
-  /* Small UI element — subtle plum tint with lavender rim */
-  .glass {
-    @apply bg-midnight-800/75 border border-lavender-700/35;
-  }
-
-  /* Retained for backward compat — typography-led, no harsh neon glow */
-  .glow-text {
-    /* Headings communicate through typography and subtle lavender accents */
-  }
-
-  /* Price / total — visible soft lavender */
-  .gold-text {
-    @apply text-lavender-300 font-medium;
-  }
-
-  /* Subtle lavender border glow for interactive focus states */
-  .glow-border {
-    box-shadow: 0 0 0 1px rgba(185, 164, 206, 0.35);
-  }
-
+  /* Section padding */
   .section-padding {
-    @apply px-6 sm:px-8 lg:px-16 xl:px-24;
+    @apply px-5 sm:px-8 lg:px-14 xl:px-20;
   }
 
-  .heading-display {
-    @apply font-display tracking-tight;
+  /* Primary CTA — marigold gold with a warm glow */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2.5
+           px-7 sm:px-8 py-3.5 sm:py-4
+           font-body font-semibold text-[15px] sm:text-[16px] tracking-wide
+           rounded-xl transition-all duration-300;
+    background: linear-gradient(135deg, #FFE98A 0%, #FFB020 46%, #FF7A1A 100%);
+    color: #1A0C04;
+    border: 1px solid rgba(255, 244, 200, 0.65);
+    box-shadow:
+      0 0 0 1px rgba(255, 190, 60, 0.25),
+      0 8px 26px rgba(255, 140, 30, 0.42),
+      0 0 28px rgba(255, 70, 150, 0.18);
+    animation: glowPulse 3.8s ease-in-out infinite;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #FFF3B8 0%, #FFC44A 42%, #FF8A2A 100%);
+    box-shadow:
+      0 10px 32px rgba(255, 150, 40, 0.55),
+      0 0 36px rgba(255, 80, 160, 0.28);
+    transform: translateY(-2px);
+    animation: none;
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  .btn-primary:disabled,
+  .btn-primary:disabled:hover {
+    animation: none;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Secondary CTA — electric blue and magenta glass */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2.5
+           px-7 sm:px-8 py-3.5 sm:py-4
+           font-body font-semibold text-[15px] sm:text-[16px] tracking-wide
+           rounded-xl transition-all duration-300;
+    border: 1px solid rgba(150, 190, 255, 0.5);
+    color: #F4E7FF;
+    background: linear-gradient(135deg, rgba(36, 78, 190, 0.45) 0%, rgba(92, 28, 140, 0.42) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 22px rgba(80, 130, 255, 0.18);
+  }
+  .btn-secondary:hover {
+    border-color: rgba(255, 210, 120, 0.8);
+    background: linear-gradient(135deg, rgba(48, 96, 210, 0.62) 0%, rgba(140, 36, 120, 0.55) 100%);
+    color: #FFFFFF;
+    box-shadow: 0 0 26px rgba(255, 80, 160, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  .btn-secondary:active {
+    transform: translateY(0);
+  }
+
+  /* Eyebrow label */
+  .section-eyebrow {
+    @apply font-body font-semibold uppercase;
+    font-size: 0.875rem; /* 14px */
+    letter-spacing: 0.22em;
+    color: #FFE08A;
+    text-shadow: 0 0 16px rgba(255, 196, 70, 0.35);
+  }
+
+  /* Thin horizontal rule accent */
+  .gold-rule {
+    width: 4.25rem;
+    height: 2px;
+    background: linear-gradient(90deg, #6EA2FF 0%, #FFE36A 38%, #FF8A1E 72%, #FF4DB8 100%);
+    box-shadow: 0 0 10px rgba(255, 180, 60, 0.45);
+    display: block;
+    border-radius: 999px;
+  }
+
+  /* Main heading highlight: vertical bright-yellow-to-deep-orange gradient */
+  .heading-highlight {
+    background: linear-gradient(180deg, #FFE873 0%, #FFB020 48%, #F04C1E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  /* Highlight Banner: Marigold Yellow and Creamy Gold with Dark Brown text */
+  .highlight-banner {
+    position: relative;
+    background:
+      linear-gradient(115deg, rgba(255, 255, 255, 0.42) 0%, transparent 32%, transparent 68%, rgba(255, 255, 255, 0.18) 100%),
+      linear-gradient(135deg, #FFF6C8 0%, #FFD56B 42%, #FF9A2C 100%);
+    color: #2E1502;
+    border: 1px solid rgba(255, 236, 170, 0.7);
+    box-shadow:
+      0 10px 28px -8px rgba(255, 150, 30, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+
+  /* Jewel hairline used on pills, nav, and small chips */
+  .jewel-chip {
+    background:
+      linear-gradient(180deg, rgba(32, 52, 120, 0.55), rgba(20, 12, 48, 0.92)) padding-box,
+      linear-gradient(120deg, rgba(255, 227, 140, 0.85), rgba(255, 77, 184, 0.55), rgba(110, 162, 255, 0.8)) border-box;
+    border: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255, 236, 190, 0.16), 0 10px 28px -14px rgba(0, 0, 0, 0.65);
+  }
+
+  /* Registration and summary panels */
+  .festive-panel {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgba(255, 220, 140, 0.08), transparent 84px),
+      linear-gradient(165deg, #1a3278 0%, #24124e 42%, #140a30 100%);
+    border: 1px solid rgba(243, 202, 102, 0.42);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 236, 190, 0.2),
+      0 0 0 1px rgba(120, 70, 210, 0.2),
+      0 22px 50px -18px rgba(0, 0, 0, 0.75),
+      0 0 36px -12px rgba(255, 60, 150, 0.28);
+    overflow: hidden;
+  }
+  .festive-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3D7EFF, #C084FC, #FF4DB8, #FF8A1E, #FFE36A, #FF8A1E, #FF4DB8, #3D7EFF);
+    pointer-events: none;
+  }
+
+  /* Feature Card */
+  .feature-card, .festive-card {
+    position: relative;
+    background: linear-gradient(165deg, rgba(28, 52, 122, 0.78) 0%, #1a1044 48%, #140a2e 100%);
+    border: 1px solid rgba(243, 202, 102, 0.38);
+    border-radius: 1rem;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 236, 190, 0.2),
+      0 14px 36px -14px rgba(4, 6, 24, 0.85),
+      0 0 26px -10px rgba(80, 120, 255, 0.38);
+    transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .feature-card::before, .festive-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, var(--card-accent, #FFE08A), var(--card-accent-2, #FF6F1E), transparent);
+    box-shadow: 0 0 12px var(--card-accent, rgba(255, 210, 90, 0.65));
+    pointer-events: none;
+  }
+  .feature-card:hover, .festive-card:hover {
+    border-color: rgba(255, 214, 130, 0.72);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 236, 190, 0.28),
+      0 18px 40px -12px rgba(4, 6, 24, 0.9),
+      0 0 28px -6px rgba(255, 80, 160, 0.32),
+      0 0 24px -8px rgba(90, 150, 255, 0.4);
+    transform: translateY(-3px);
+  }
+
+  .tone-azure { background: linear-gradient(160deg, #1a3d92 0%, #171244 58%, #12082c 100%); --card-accent: #7EB6FF; --card-accent-2: #C084FC; }
+  .tone-magenta { background: linear-gradient(160deg, #5a186c 0%, #211046 56%, #14082c 100%); --card-accent: #FF4DB8; --card-accent-2: #FFE36A; }
+  .tone-saffron { background: linear-gradient(160deg, #5c3412 0%, #241448 54%, #14082c 100%); --card-accent: #FFB020; --card-accent-2: #FF6F1E; }
+  .tone-violet { background: linear-gradient(160deg, #32186e 0%, #1a1048 58%, #12082c 100%); --card-accent: #C084FC; --card-accent-2: #7EB6FF; }
+  .tone-peacock { background: linear-gradient(160deg, #0f3d62 0%, #171248 58%, #12082c 100%); --card-accent: #5EEAD4; --card-accent-2: #7EB6FF; }
+  .tone-rose { background: linear-gradient(160deg, #6a2048 0%, #1c1044 56%, #14082c 100%); --card-accent: #FF8AB8; --card-accent-2: #FFB020; }
+
+  .accent-azure { --card-accent: #7EB6FF; --card-accent-2: #C084FC; }
+  .accent-magenta { --card-accent: #FF4DB8; --card-accent-2: #FFE36A; }
+  .accent-saffron { --card-accent: #FFB020; --card-accent-2: #FF6F1E; }
+  .accent-gold { --card-accent: #FFE36A; --card-accent-2: #FF8A1E; }
+  .accent-violet { --card-accent: #C084FC; --card-accent-2: #7EB6FF; }
+
+  /* Festive form fields — blue glass, not a white sheet */
+  .festive-input {
+    @apply w-full px-4 py-3.5 rounded-xl text-[16px] transition-all duration-200 outline-none;
+    background: linear-gradient(180deg, #182454 0%, #14102e 100%);
+    border: 1px solid rgba(243, 202, 102, 0.4);
+    color: #FFFFFF;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .festive-input:focus {
+    border-color: #FFE08A;
+    box-shadow: 0 0 0 3px rgba(255, 180, 60, 0.2), 0 0 18px rgba(255, 70, 160, 0.16);
+    background: linear-gradient(180deg, #1c2d68 0%, #181238 100%);
+  }
+  .festive-input::placeholder {
+    color: rgba(255, 248, 239, 0.38);
   }
 }
 
@@ -65,53 +241,70 @@
     text-wrap: balance;
   }
 
-  .perspective {
-    perspective: 1000px;
+  .text-brightgold {
+    color: #F3CA66;
   }
 
-  .preserve-3d {
-    transform-style: preserve-3d;
+  .text-marigold {
+    color: #FFB300;
+  }
+
+  .text-orangeaccent {
+    color: #FF6F1E;
+  }
+
+  .text-darkbrown {
+    color: #2E1502;
   }
 }
 
-/* Custom scrollbar — restrained plum/lavender */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 190, 60, 0.25),
+      0 8px 26px rgba(255, 140, 30, 0.38),
+      0 0 22px rgba(255, 70, 150, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 220, 140, 0.45),
+      0 10px 32px rgba(255, 150, 40, 0.55),
+      0 0 34px rgba(255, 80, 160, 0.28);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.animate-twinkle {
+  animation: twinkle 2.8s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #171023;
+  background: #0C041B;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #4a3470;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #C084FC, #F3CA66);
+  border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #785a9e;
+  background: #FFE08A;
 }
 
-/* Range input styling */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-input[type="range"]::-webkit-slider-track {
-  height: 3px;
-  border-radius: 4px;
-  background: rgba(185, 164, 206, 0.25);
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: #b9a4ce;
-  margin-top: -6px;
+/* Prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

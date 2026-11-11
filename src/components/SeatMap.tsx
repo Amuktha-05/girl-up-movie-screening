@@ -15,7 +15,7 @@ interface SeatMapProps {
   onRefreshRef?: (fn: () => void) => void;
 }
 
-/** Generate all seat IDs for a section */
+/** Generate all pass slot IDs for a section */
 function generateSeats(prefix: string, count: number): string[] {
   return Array.from({ length: count }, (_, i) =>
     `${prefix}${String(i + 1).padStart(2, '0')}`,
@@ -53,8 +53,8 @@ export default function SeatMap({
       });
       setSeatStatuses(map);
     } catch (err) {
-      setFetchError('Could not load seat availability. Please refresh.');
-      console.error('Seat fetch error:', err);
+      setFetchError('Could not load pass allocation status. Please refresh.');
+      console.error('Pass fetch error:', err);
     } finally {
       setLoading(false);
     }
@@ -83,12 +83,12 @@ export default function SeatMap({
 
     return (
       <div className="flex-none">
-        <p className="text-xs tracking-[0.2em] text-lavender-400 font-medium uppercase mb-3 text-center">
+        <p className="text-[14px] tracking-[0.2em] text-[#F3CA66] font-semibold uppercase mb-3 text-center">
           {label}
         </p>
         <div className="space-y-1.5">
           {rows.map((row, ri) => (
-            <div key={ri} className="flex flex-nowrap justify-center gap-1">
+            <div key={ri} className="flex flex-nowrap justify-center gap-1.5">
               {row.map((seat) => {
                 const isBooked = seatStatuses[seat] === 'booked';
                 const isSelected = selectedSeats.includes(seat);
@@ -100,12 +100,12 @@ export default function SeatMap({
                     onClick={() => handleClick(seat)}
                     title={seat}
                     className={[
-                      'w-7 h-7 sm:w-8 sm:h-8 rounded text-[9px] sm:text-[10px] font-medium transition-all duration-150 border',
+                      'w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-[11px] sm:text-[12px] font-semibold transition-all duration-150 border',
                       isBooked
-                        ? 'bg-midnight-900/60 border-lavender-800/30 text-lavender-700/40 cursor-not-allowed'
+                        ? 'bg-[#0E041A] border-[#1C0A33] text-[#FFF8EF]/20 cursor-not-allowed'
                         : isSelected
-                        ? 'bg-lavender-400 border-lavender-300 text-midnight-950 shadow-md shadow-lavender-900/40 scale-105'
-                        : 'bg-midnight-800/80 border-lavender-700/40 text-cream-200/70 hover:border-lavender-400 hover:bg-lavender-900/40 hover:text-cream-50',
+                        ? 'bg-gradient-to-b from-[#FFE9A0] to-[#FFB020] border-[#FFF0C2] text-[#2E1502] shadow-md shadow-[#FFB020]/50 scale-105'
+                        : 'bg-[#14082B] border-[#F3CA66]/25 text-[#FFF8EF]/80 hover:border-[#F3CA66] hover:bg-[#1E0D44] hover:text-[#FFF8EF]',
                     ].join(' ')}
                   >
                     {seat.replace(/^[AB]0?/, '')}
@@ -121,8 +121,8 @@ export default function SeatMap({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-16 text-cream-200/60 text-sm">
-        <span className="animate-pulse">Loading seat map…</span>
+      <div className="flex items-center justify-center py-16 text-[#FFF8EF]/70 text-[16px]">
+        <span className="animate-pulse">Loading pass allocation…</span>
       </div>
     );
   }
@@ -130,11 +130,11 @@ export default function SeatMap({
   if (fetchError) {
     return (
       <div className="text-center py-10">
-        <p className="text-sm text-red-300 mb-3">{fetchError}</p>
+        <p className="text-[16px] text-red-300 mb-3">{fetchError}</p>
         <button
           type="button"
           onClick={fetchSeats}
-          className="text-xs text-lavender-300 hover:text-lavender-200 underline"
+          className="text-[14px] text-[#F3CA66] hover:underline font-semibold"
         >
           Retry
         </button>
@@ -144,37 +144,42 @@ export default function SeatMap({
 
   return (
     <div>
-      {/* Screen indicator */}
+      {/* Stage indicator for open-air venue */}
       <div className="mb-6 text-center">
-        <div className="inline-block w-2/3 h-1.5 rounded-full bg-gradient-to-r from-lavender-700/30 via-lavender-400/60 to-lavender-700/30 mb-1" />
-        <p className="text-[10px] tracking-[0.3em] text-lavender-400/60 uppercase">Screen</p>
+        <div
+          className="inline-block w-2/3 h-1.5 rounded-full mb-1.5"
+          style={{ background: 'linear-gradient(90deg, transparent, #7EB6FF, #FFE36A, #FF4DB8, transparent)' }}
+        />
+        <p className="text-[13px] tracking-[0.25em] text-[#F3CA66] uppercase font-semibold">
+          Main Stage &amp; Dance Floor
+        </p>
       </div>
 
-      {/* Mobile-only swipe hint — hidden on md+ (desktop) */}
-      <p className="md:hidden text-center text-[11px] text-lavender-400/70 tracking-wide mb-2 select-none">
-        Swipe to see Section B →
+      {/* Mobile-only swipe hint */}
+      <p className="md:hidden text-center text-[13px] text-[#F3CA66]/80 tracking-wide mb-3 select-none">
+        Swipe to see Zone B →
       </p>
 
-      {/* Two section columns — scroll wrapper isolates horizontal scroll to the map only */}
-      <div className="overflow-x-auto pb-2">
+      {/* Two section columns */}
+      <div className="overflow-x-auto pb-3">
         <div className="flex gap-4 sm:gap-8 justify-center min-w-max mx-auto">
-          {renderSection(SECTION_A, 'Section A')}
+          {renderSection(SECTION_A, 'Zone A')}
           {/* Aisle divider */}
-          <div className="w-px bg-lavender-800/40 self-stretch mx-1 shrink-0" />
-          {renderSection(SECTION_B, 'Section B')}
+          <div className="w-px bg-[#F3CA66]/25 self-stretch mx-1 shrink-0" />
+          {renderSection(SECTION_B, 'Zone B')}
         </div>
       </div>
 
       {/* Legend */}
-      <div className="flex items-center justify-center gap-5 mt-5 flex-wrap">
+      <div className="flex items-center justify-center gap-6 mt-6 flex-wrap pt-3 border-t border-[#F3CA66]/15">
         {[
-          { cls: 'bg-midnight-800/80 border-lavender-700/40', label: 'Available' },
-          { cls: 'bg-lavender-400 border-lavender-300', label: 'Selected' },
-          { cls: 'bg-midnight-900/60 border-lavender-800/30', label: 'Booked' },
+          { cls: 'bg-[#14082B] border-[#F3CA66]/30', label: 'Available' },
+          { cls: 'bg-[#F3CA66] border-[#FFE169]', label: 'Selected' },
+          { cls: 'bg-[#0E041A] border-[#1C0A33]', label: 'Reserved' },
         ].map(({ cls, label }) => (
-          <div key={label} className="flex items-center gap-1.5">
-            <div className={`w-5 h-5 rounded border ${cls}`} />
-            <span className="text-xs text-cream-200/60">{label}</span>
+          <div key={label} className="flex items-center gap-2">
+            <div className={`w-5 h-5 rounded-md border ${cls}`} />
+            <span className="text-[14px] text-[#FFF8EF]/80 font-medium">{label}</span>
           </div>
         ))}
       </div>
