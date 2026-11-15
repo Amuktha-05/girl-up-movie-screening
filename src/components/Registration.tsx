@@ -1,6 +1,11 @@
 ﻿import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import Reveal from '@/components/Reveal';
-import { getPaymentQrImage } from '@/data/pricingData';
+import { eventData } from '@/data/eventData';
+import {
+  getRegistrationPlan,
+  registrationPlans,
+  type RegistrationPlanId,
+} from '@/data/pricingData';
 import { supabase } from '@/lib/supabase';
 import {
   ArrowRight,
@@ -28,8 +33,6 @@ interface FormErrors {
 type Stage = 'form' | 'payment' | 'success';
 type PaymentSubStep = 'qr' | 'proof';
 
-const REGISTRATION_AMOUNT = 175;
-
 function generateRegistrationId(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let suffix = '';
@@ -51,6 +54,12 @@ const EMPTY_PERSONAL: PersonalData = {
   collegeRegistrationNumber: '',
 };
 
+const PLAN_QR_IMAGES: Record<RegistrationPlanId, string> = {
+  single: '/images/payment-qr-199.png',
+  duo: '/images/payment-qr-179.png',
+  trio: '/images/payment-qr-159.png',
+};
+
 export default function Registration() {
   const [stage, setStage] = useState<Stage>('form');
   const [paymentSubStep, setPaymentSubStep] =
@@ -58,6 +67,8 @@ export default function Registration() {
 
   const [personal, setPersonal] =
     useState<PersonalData>(EMPTY_PERSONAL);
+  const [planId, setPlanId] = useState<RegistrationPlanId>('single');
+  const selectedPlan = getRegistrationPlan(planId);
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
@@ -186,7 +197,16 @@ export default function Registration() {
 
       uploadedFilePath = filePath;
 
-      // 2. Save this individual registration in the CHAMAK CHALLO table.
+      const validPlan =
+        (selectedPlan.participantCount === 1 && selectedPlan.totalAmount === 199)
+        || (selectedPlan.participantCount === 2 && selectedPlan.totalAmount === 179)
+        || (selectedPlan.participantCount === 3 && selectedPlan.totalAmount === 159);
+
+      if (!validPlan) {
+        throw new Error('Please select a valid registration option.');
+      }
+
+      // 2. Save this registration in the CHAMAK CHALLO table.
       const { error: insertError } = await supabase
         .from('chamak_challo_registrations')
         .insert({
@@ -200,7 +220,8 @@ export default function Registration() {
             personal.collegeRegistrationNumber.trim(),
           upi_display_name: personal.upiDisplayName.trim(),
           payment_screenshot: filePath,
-          total_amount: REGISTRATION_AMOUNT,
+          participant_count: selectedPlan.participantCount,
+          total_amount: selectedPlan.totalAmount,
           payment_status: 'pending',
           confirmation_status: 'not_sent',
         });
@@ -236,6 +257,7 @@ export default function Registration() {
     setStage('form');
     setPaymentSubStep('qr');
     setPersonal(EMPTY_PERSONAL);
+    setPlanId('single');
     setErrors({});
     setScreenshotFile(null);
     setFileName(null);
@@ -299,7 +321,9 @@ export default function Registration() {
                 <SummaryRow label="Email" value={personal.email} />
                 <SummaryRow label="Phone" value={personal.phone} />
                 <SummaryRow label="Event" value="CHAMAK CHALLO" />
-                <SummaryRow label="Participation Fee" value="₹175" />
+                <SummaryRow label="Registration Type" value={selectedPlan.label} />
+                <SummaryRow label="Participants" value={String(selectedPlan.participantCount)} />
+                <SummaryRow label="Total Amount" value={`₹${selectedPlan.totalAmount}`} />
                 <SummaryRow label="Payment Status" value="Pending verification" />
               </div>
             </div>
@@ -341,13 +365,13 @@ export default function Registration() {
 
               <div className="jewel-chip inline-block px-7 py-5 rounded-xl text-center">
                 <p className="font-body text-[14px] text-[#F3CA66] uppercase tracking-wider mb-1 font-semibold">
-                  Participation Fee
+                  {selectedPlan.label} Pass ({selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'Participants' : 'Participant'})
                 </p>
                 <p className="font-display text-4xl text-white font-semibold">
-                  ₹{REGISTRATION_AMOUNT}
+                  ₹{selectedPlan.totalAmount}
                 </p>
-                <p className="font-body text-[13px] text-[#FFF8EF]/65 mt-1">
-                  Per participant
+                <p className="font-body text-[13px] text-[#FFF8EF]/65 mt-1 font-light">
+                  Total group price for all {selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'members' : 'member'}
                 </p>
               </div>
             </div>
@@ -358,7 +382,7 @@ export default function Registration() {
                   1. Scan the QR code using any UPI app such as GPay, PhonePe or Paytm.
                 </p>
                 <p className="font-body text-[16px] text-[#FFF8EF]/80 font-light">
-                  2. Pay exactly ₹175 for your individual registration.
+                  2. Pay exactly <strong className="text-[#F3CA66] font-semibold">₹{selectedPlan.totalAmount}</strong> for your {selectedPlan.label} registration ({selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'} total).
                 </p>
                 <p className="font-body text-[16px] text-[#FFF8EF]/80 font-light">
                   3. Save your payment receipt screenshot and upload it on the next step.
@@ -368,14 +392,17 @@ export default function Registration() {
               <div className="flex flex-col items-center mb-8">
                 <div className="p-4 bg-white rounded-2xl mb-4 shadow-xl border border-[#F3CA66]/40">
                   <img
-                    src={getPaymentQrImage(REGISTRATION_AMOUNT)}
-                    alt="CHAMAK CHALLO UPI Payment QR Code"
+                    src={PLAN_QR_IMAGES[planId]}
+                    alt={`CHAMAK CHALLO ${selectedPlan.label} Plan UPI Payment QR Code`}
                     className="w-56 h-56 object-contain"
                   />
                 </div>
 
                 <p className="font-body text-[15px] text-[#FFF8EF]/80 text-center">
                   Payee: <strong className="text-[#F3CA66]">Girl Up Andhra University</strong>
+                </p>
+                <p className="font-body text-[13px] text-[#FFF8EF]/60 text-center mt-1">
+                  Amount: <strong className="text-white">₹{selectedPlan.totalAmount} Total</strong> ({selectedPlan.label})
                 </p>
               </div>
 
@@ -394,7 +421,7 @@ export default function Registration() {
                 className="mt-4 w-full text-[15px] text-[#F3CA66] hover:text-[#FFF8EF] transition-colors flex items-center justify-center gap-1 font-medium"
               >
                 <ChevronLeft className="w-4 h-4" />
-                Back to participant details
+                Back to registration details
               </button>
             </div>
           </Reveal>
@@ -420,12 +447,15 @@ export default function Registration() {
                 Upload Payment Receipt
               </h2>
 
-              <div className="jewel-chip inline-block px-6 py-4 rounded-xl">
+              <div className="jewel-chip inline-block px-6 py-4 rounded-xl text-center">
                 <p className="font-body text-[14px] text-[#F3CA66] uppercase tracking-wider mb-1 font-semibold">
-                  Amount Paid
+                  Amount to Pay
                 </p>
                 <p className="font-display text-3xl text-white font-semibold">
-                  ₹{REGISTRATION_AMOUNT}
+                  ₹{selectedPlan.totalAmount}
+                </p>
+                <p className="font-body text-[12px] text-[#FFF8EF]/65 mt-0.5">
+                  {selectedPlan.label} · {selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'} (Total)
                 </p>
               </div>
             </div>
@@ -483,7 +513,7 @@ export default function Registration() {
                 />
 
                 <span className="font-body text-[15px] sm:text-[16px] text-[#FFF8EF]/85 leading-relaxed font-light">
-                  I have completed the ₹175 UPI payment and attached the authentic payment screenshot.
+                  I have completed the ₹{selectedPlan.totalAmount} UPI payment for {selectedPlan.label} registration ({selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'}) and attached the authentic payment screenshot.
                 </span>
               </label>
 
@@ -539,19 +569,19 @@ export default function Registration() {
             </h2>
 
             <p className="font-body text-[17px] text-[#FFF8EF]/75 font-light">
-              Each participant must complete an individual registration.
+              Select your pass option and provide primary registrant details.
             </p>
           </div>
 
           <div className="jewel-chip mb-7 px-6 py-4 rounded-xl text-center">
-            <p className="font-body text-[15px] sm:text-[16px] font-medium text-[#F3CA66]">
-              16 November 2026 · 4:00 PM – 7:00 PM
+            <p className="font-body text-[15px] sm:text-[16px] font-semibold text-[#F3CA66]">
+              {eventData.date} · {eventData.time}
             </p>
             <p className="font-body text-[14px] text-[#FFF8EF]/80 mt-1">
-              North Campus Basketball Court, Andhra University
+              {eventData.venue}
             </p>
-            <p className="font-body text-[14px] text-[#FFF8EF]/80 mt-2">
-              Participation Fee: ₹175 per person
+            <p className="font-body text-[13px] text-amber-300/90 mt-2 font-medium">
+              Total group pricing · Only the primary registrant fills this form
             </p>
           </div>
 
@@ -559,6 +589,72 @@ export default function Registration() {
             onSubmit={handlePersonalSubmit}
             className="festive-panel rounded-2xl p-7 sm:p-10 space-y-6 shadow-2xl"
           >
+            {/* Registration Option Selector */}
+            <div className="space-y-3 pb-2 border-b border-[#F3CA66]/15">
+              <div className="flex items-center justify-between">
+                <label className="block text-[15px] font-medium text-[#FFF8EF] tracking-wide">
+                  Select Registration Option <span className="text-[#F3CA66]">*</span>
+                </label>
+                <span className="text-[12px] text-[#F3CA66] font-semibold uppercase tracking-wider">
+                  Total Group Price
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                {registrationPlans.map((plan) => {
+                  const isSelected = plan.id === planId;
+                  return (
+                    <button
+                      key={plan.id}
+                      type="button"
+                      onClick={() => setPlanId(plan.id)}
+                      className={`relative p-4 rounded-xl text-left transition-all duration-200 border flex flex-col justify-between ${
+                        isSelected
+                          ? 'bg-[#201048] border-[#F3CA66] shadow-lg shadow-[#F3CA66]/20 ring-1 ring-[#F3CA66]'
+                          : 'bg-[#14082B]/80 border-[#F3CA66]/25 hover:border-[#F3CA66]/60 hover:bg-[#1A0B36]'
+                      }`}
+                    >
+                      {plan.id === 'trio' && (
+                        <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FF6F1E] text-white tracking-wider uppercase shadow-sm">
+                          Best Value
+                        </span>
+                      )}
+                      <div>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="font-display text-[19px] font-bold text-white">
+                            {plan.label}
+                          </span>
+                          <span
+                            className={`w-4 h-4 rounded-full border flex items-center justify-center text-[10px] ${
+                              isSelected
+                                ? 'border-[#F3CA66] bg-[#F3CA66] text-[#0E041E] font-bold'
+                                : 'border-[#F3CA66]/40'
+                            }`}
+                          >
+                            {isSelected ? '✓' : ''}
+                          </span>
+                        </div>
+                        <p className="font-body text-[13px] text-[#FFF8EF]/70 mb-2 font-light">
+                          {plan.participantCount} {plan.participantCount > 1 ? 'Participants' : 'Participant'}
+                        </p>
+                      </div>
+                      <div className="pt-2 border-t border-[#F3CA66]/15 flex items-baseline justify-between">
+                        <span className="font-display text-2xl font-bold text-[#F3CA66]">
+                          ₹{plan.totalAmount}
+                        </span>
+                        <span className="text-[11px] text-[#FFF8EF]/60 font-light">
+                          Total
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <p className="text-[13px] text-[#FFF8EF]/60 font-light">
+                Selected: <strong className="text-white">{selectedPlan.label}</strong> — Total ₹{selectedPlan.totalAmount} for all {selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'}.
+              </p>
+            </div>
             <div>
               <label className="block text-[15px] font-medium text-[#FFF8EF] mb-2 tracking-wide">
                 Full Name <span className="text-[#F3CA66]">*</span>
@@ -687,7 +783,7 @@ export default function Registration() {
               type="submit"
               className="btn-primary w-full justify-center text-[16px] py-4 rounded-xl mt-4"
             >
-              Continue to Payment
+              Continue to Payment (₹{selectedPlan.totalAmount} Total)
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>

@@ -278,7 +278,7 @@ export default function AdminDashboard() {
                 <tr className="border-b border-lavender-700/30 bg-midnight-900/60">
                   {[
                     'Reg ID', 'Name', 'Email', 'Phone', 'College', 'Reg No.',
-                    'Amount', 'UPI Name', 'Payment', 'Confirmation', 'Created', 'Actions',
+                    'Plan', 'Amount', 'UPI Name', 'Payment', 'Confirmation', 'Created', 'Actions',
                   ].map((h) => (
                     <th
                       key={h}

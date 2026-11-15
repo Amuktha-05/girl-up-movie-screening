@@ -8,7 +8,7 @@ const details = [
     icon: CalendarDays,
     label: 'Date',
     value: eventData.date,
-    detail: 'Monday · Post-Diwali Celebration',
+    detail: 'Wednesday · Post-Diwali Celebration',
   },
   {
     icon: Clock,

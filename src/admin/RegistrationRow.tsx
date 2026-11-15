@@ -23,7 +23,15 @@ interface Props {
   isMobile?: boolean;
 }
 
-// â”€â”€ Tiny helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Tiny helpers ─────────────────────────────────────────────────────────────
+
+function getRegistrationDetails(reg: Registration) {
+  const count =
+    reg.participant_count ??
+    (reg.total_amount === 159 ? 3 : reg.total_amount === 179 ? 2 : 1);
+  const plan = count === 3 ? 'Trio' : count === 2 ? 'Duo' : 'Single';
+  return { count, plan };
+}
 
 function PaymentBadge({ status }: { status: Registration['payment_status'] }) {
   const map = {
@@ -197,11 +205,19 @@ export default function RegistrationRow({
         </div>
 
         {/* Summary */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-          
-          <span className="text-cream-300/50">Amount</span>
-          <span className="text-cream-100">â‚¹{reg.total_amount}</span>
-        </div>
+        {(() => {
+          const { plan, count } = getRegistrationDetails(reg);
+          return (
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+              <span className="text-cream-300/50">Plan</span>
+              <span className="text-cream-100 font-medium">
+                {plan} ({count} {count > 1 ? 'participants' : 'participant'})
+              </span>
+              <span className="text-cream-300/50">Total Amount</span>
+              <span className="text-cream-100 font-semibold">₹{reg.total_amount}</span>
+            </div>
+          );
+        })()}
 
         {/* Expanded details */}
         {expanded && (
@@ -255,16 +271,26 @@ export default function RegistrationRow({
         </td>
         {/* Reg no */}
         <td className="px-3 py-3 whitespace-nowrap">
-          <p className="text-xs text-cream-200/70 font-mono">{reg.college_registration_number ?? 'â€”'}</p>
+          <p className="text-xs text-cream-200/70 font-mono">{reg.college_registration_number ?? '—'}</p>
         </td>
-        
+        {/* Plan */}
+        <td className="px-3 py-3 whitespace-nowrap">
+          {(() => {
+            const { plan, count } = getRegistrationDetails(reg);
+            return (
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-lavender-900/40 text-lavender-300 border border-lavender-600/40">
+                {plan} · {count}p
+              </span>
+            );
+          })()}
+        </td>
         {/* Amount */}
         <td className="px-3 py-3 whitespace-nowrap text-right">
-          <p className="text-xs font-medium text-lavender-300">â‚¹{reg.total_amount}</p>
+          <p className="text-xs font-medium text-lavender-300">₹{reg.total_amount}</p>
         </td>
         {/* UPI Name */}
         <td className="px-3 py-3 max-w-[120px]">
-          <p className="text-xs text-cream-200/60 truncate">{reg.upi_display_name ?? 'â€”'}</p>
+          <p className="text-xs text-cream-200/60 truncate">{reg.upi_display_name ?? '—'}</p>
         </td>
         {/* Payment Status */}
         <td className="px-3 py-3 whitespace-nowrap">
@@ -294,7 +320,7 @@ export default function RegistrationRow({
       {/* Expanded action row */}
       {expanded && (
         <tr className="border-b border-lavender-700/15 bg-midnight-900/40">
-          <td colSpan={12} className="px-4 py-4">
+          <td colSpan={13} className="px-4 py-4">
             <DetailGrid reg={reg} />
             <div className="mt-3">
               <ActionPanel
@@ -319,19 +345,20 @@ export default function RegistrationRow({
   );
 }
 
-// â”€â”€ Shared sub-components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Shared sub-components ─────────────────────────────────────────────────────
 
 function DetailGrid({ reg }: { reg: Registration }) {
+  const { plan, count } = getRegistrationDetails(reg);
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-1.5 text-xs mb-3">
       <Field label="Email" value={reg.email} />
       <Field label="Phone" value={reg.phone} />
-      <Field label="College" value={reg.college_name ?? 'â€”'} />
-      <Field label="Department" value={reg.department ?? 'â€”'} />
-      <Field label="Reg. Number" value={reg.college_registration_number ?? 'â€”'} mono />
-      <Field label="UPI Name" value={reg.upi_display_name ?? 'â€”'} />
-      
-      <Field label="Amount" value={`â‚¹${reg.total_amount}`} />
+      <Field label="College" value={reg.college_name ?? '—'} />
+      <Field label="Department" value={reg.department ?? '—'} />
+      <Field label="Reg. Number" value={reg.college_registration_number ?? '—'} mono />
+      <Field label="UPI Name" value={reg.upi_display_name ?? '—'} />
+      <Field label="Registration Plan" value={`${plan} (${count} ${count > 1 ? 'participants' : 'participant'})`} />
+      <Field label="Total Amount" value={`₹${reg.total_amount}`} />
     </div>
   );
 }
@@ -461,7 +488,7 @@ function ActionPanel({
         {/* Loading indicator */}
         {actionLoading && (
           <span className="inline-flex items-center gap-1 text-xs text-cream-300/50">
-            <Clock className="w-3.5 h-3.5 animate-spin" /> Updatingâ€¦
+            <Clock className="w-3.5 h-3.5 animate-spin" /> Updating...
           </span>
         )}
       </div>
@@ -471,7 +498,7 @@ function ActionPanel({
         <div className="mt-3 bg-midnight-900/60 border border-lavender-700/20 rounded-xl p-4 space-y-3">
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold text-lavender-300 uppercase tracking-wider">Generated Confirmation Email</p>
-            <p className="text-[10px] text-cream-300/40">âš  Do NOT send from this dashboard â€” copy and send manually from Gmail</p>
+            <p className="text-[10px] text-cream-300/40">⚠ Do NOT send from this dashboard — copy and send manually from Gmail</p>
           </div>
 
           {/* Recipient */}

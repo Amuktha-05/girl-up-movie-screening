@@ -1,4 +1,5 @@
 import Reveal from '@/components/Reveal';
+import { eventData } from '@/data/eventData';
 import { Bell, ArrowRight, CheckCircle2, Ticket } from 'lucide-react';
 import { CornerFiligree, MandalaMotif } from './FestiveMotifs';
 
@@ -53,10 +54,10 @@ export default function Tickets() {
 
               {/* Title & Description */}
               <h3 className="font-display text-[28px] sm:text-[34px] font-semibold text-[#FFFFFF] mb-4">
-                Registration Opening Soon
+                Registrations Are Now Open!
               </h3>
               <p className="font-body text-[17px] text-[#FFF8EF]/80 font-light mb-9 leading-relaxed max-w-lg mx-auto">
-                Participation passes will be released online shortly. Complete your early interest registration below to secure priority access.
+                Choose your participation plan and complete your registration to secure your entry to CHAMAK CHALLO 2026.
               </p>
 
               {/* Included Highlights Grid */}
@@ -96,9 +97,9 @@ export default function Tickets() {
               {/* Event Timing Bar */}
               <div className="jewel-chip grid grid-cols-3 gap-0 rounded-xl mb-10 divide-x divide-[#F3CA66]/25">
                 {[
-                  { label: 'Date', val: '16 Nov 2026' },
-                  { label: 'Timing', val: '4 – 7 PM' },
-                  { label: 'Venue', val: 'AU North Campus' },
+                  { label: 'Date', val: eventData.date },
+                  { label: 'Timing', val: eventData.time },
+                  { label: 'Venue', val: eventData.venue },
                 ].map((f) => (
                   <div key={f.label} className="py-4 px-2 text-center">
                     <p className="font-body font-semibold text-[14px] text-[#F3CA66] uppercase tracking-wider mb-0.5">

@@ -12,6 +12,7 @@ export interface Registration {
   college_registration_number: string | null;
   upi_display_name: string | null;
   payment_screenshot: string;
+  participant_count?: number | null;
   total_amount: number;
   payment_status: PaymentStatus;
   confirmation_status: ConfirmationStatus;

@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
-import { ticketOptions, TICKET_PRICE, type TicketOption } from '@/data/pricingData';
+import { ticketOptions, type TicketOption } from '@/data/pricingData';
 
 export interface BookingSelection {
   ticketId: string;
@@ -20,7 +20,7 @@ const BookingContext = createContext<BookingContextValue | null>(null);
 
 export function BookingProvider({ children }: { children: ReactNode }) {
   const [selection, setSelection] = useState<BookingSelection>({
-    ticketId: 'student',
+    ticketId: 'single',
     ticketQty: 1,
   });
 
@@ -34,8 +34,8 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   );
 
   const ticketTotal = useMemo(
-    () => TICKET_PRICE * selection.ticketQty,
-    [selection.ticketQty],
+    () => selectedTicket?.price ?? 0,
+    [selectedTicket],
   );
 
   const total = ticketTotal;

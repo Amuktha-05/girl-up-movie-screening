@@ -13,26 +13,58 @@ export interface TicketOption {
   highlight?: boolean;
 }
 
-// NOTE: TICKET_PRICE and categories are placeholder values.
-// Update these when official pricing is confirmed.
-export const TICKET_PRICE = 175;
-export const ORIGINAL_PRICE = 175;
+export type RegistrationPlanId = 'single' | 'duo' | 'trio';
 
-export const ticketOptions: TicketOption[] = [
+export interface RegistrationPlan {
+  id: RegistrationPlanId;
+  label: 'Single' | 'Duo' | 'Trio';
+  participantCount: 1 | 2 | 3;
+  totalAmount: 199 | 179 | 159;
+  summary: string;
+}
+
+/** Group totals, not per-person prices. */
+export const registrationPlans: RegistrationPlan[] = [
   {
-    id: 'student',
-    name: 'CHAMAK CHALLO Entry Ticket',
-    price: TICKET_PRICE,
-    description: 'Full access to all CHAMAK CHALLO experiences.',
-    perks: [
-      'Entry to CHAMAK CHALLO event',
-      'DJ & Bollywood Dance Night access',
-      'Festive activities & games',
-      'Reserved seating',
-    ],
-    highlight: true,
+    id: 'single',
+    label: 'Single',
+    participantCount: 1,
+    totalAmount: 199,
+    summary: '1 person — ₹199 total',
+  },
+  {
+    id: 'duo',
+    label: 'Duo',
+    participantCount: 2,
+    totalAmount: 179,
+    summary: '2 people — ₹179 total',
+  },
+  {
+    id: 'trio',
+    label: 'Trio',
+    participantCount: 3,
+    totalAmount: 159,
+    summary: '3 people — ₹159 total',
   },
 ];
+
+export function getRegistrationPlan(id: RegistrationPlanId): RegistrationPlan {
+  const plan = registrationPlans.find((item) => item.id === id);
+  if (!plan) throw new Error(`Unknown registration plan: ${id}`);
+  return plan;
+}
+
+export const TICKET_PRICE = registrationPlans[0].totalAmount;
+export const ORIGINAL_PRICE = registrationPlans[0].totalAmount;
+
+export const ticketOptions: TicketOption[] = registrationPlans.map((plan) => ({
+  id: plan.id,
+  name: `${plan.label} registration`,
+  price: plan.totalAmount,
+  description: plan.summary,
+  perks: ['Entry to CHAMAK CHALLO', 'Total group price'],
+  highlight: plan.id === 'single',
+}));
 
 export const paymentData = {
   payeeName: 'Girl Up Andhra University',

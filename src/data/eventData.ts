@@ -11,12 +11,12 @@ export const eventData = {
   taglineSub: 'Under the Viksit Bharat Theme',
   heroLine: 'One Nation. Diverse Cultures. One Vision for 2047.',
   heroSupport: 'A celebration of India\'s living culture — music, dance, craft and festive spirit — coming together at Andhra University.',
-  date: '16 November 2026',
-  dateShort: '16 NOV 2026',
-  time: '4:00 PM – 7:00 PM',
-  venue: 'North Campus Basketball Court',
-  location: 'Andhra University, Visakhapatnam',
-  seats: 'Registration details coming soon',
+  date: 'Wednesday, 18 November 2026',
+  dateShort: '18 NOV 2026',
+  time: '3:00 PM – 6:00 PM',
+  venue: 'North Campus Basketball Court, Andhra University',
+  location: 'Visakhapatnam',
+  seats: 'Registrations now open',
 };
 
 export const aboutData = {
@@ -114,17 +114,17 @@ export const faqData = [
   {
     question: 'When and where is the event?',
     answer:
-      'CHAMAK CHALLO takes place on 16 November 2026, from 4:00 PM to 7:00 PM, at the North Campus Basketball Court, Andhra University, Visakhapatnam.',
+      'CHAMAK CHALLO takes place on Wednesday, 18 November 2026, from 3:00 PM to 6:00 PM, at the North Campus Basketball Court, Andhra University, Visakhapatnam.',
   },
   {
     question: 'Who can attend?',
     answer:
-      'CHAMAK CHALLO is open to all Andhra University students. Registration details will be announced shortly.',
+      'CHAMAK CHALLO is open to all Andhra University students. Choose a Single (₹199), Duo (₹179 total) or Trio (₹159 total) pass to attend.',
   },
   {
     question: 'How do I register?',
     answer:
-      'Registration details will be announced very soon. Follow our Instagram @girlup.au and watch this page for updates.',
+      'Registrations are open now! Select your registration plan (Single, Duo or Trio) in the registration section below, complete the UPI payment using the provided QR code, and upload your payment receipt screenshot. Follow our Instagram @girlup.au for live updates.',
   },
   {
     question: 'What should I wear?',
