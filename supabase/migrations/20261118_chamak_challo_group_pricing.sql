@@ -1,36 +1,33 @@
 -- ============================================================
--- Migration: Add participant_count and update INSERT policy
+-- Migration: Correct group pricing — per-person model
 -- Table: public.chamak_challo_registrations
 --
--- Run this in the Supabase SQL Editor:
--- Dashboard → SQL Editor → New query → paste → Run
+-- PRICING CORRECTION (per-person prices, correct totals):
+--   Single: 1 participant × ₹199 = ₹199  total
+--   Duo   : 2 participants × ₹179 = ₹358  total
+--   Trio  : 3 participants × ₹159 = ₹477  total
 --
--- IMPORTANT SAFETY CHECKS:
--- - Uses ADD COLUMN IF NOT EXISTS — safe to re-run.
--- - Existing rows are preserved (default 1 is applied).
--- - Historical records (including total_amount = 175) remain untouched.
--- - Does NOT delete or alter existing data.
+-- Run this in the Supabase SQL Editor:
+--   Dashboard → SQL Editor → New query → paste → Run
+--
+-- SAFETY GUARANTEES:
+--   - Preserves ALL existing registration records (no data deleted).
+--   - Historical ₹175 registrations remain untouched.
+--   - Previous incorrect totals (₹179, ₹159) will remain in old rows
+--     but new INSERTs will only accept the corrected totals.
+--   - Uses ADD COLUMN IF NOT EXISTS — safe to re-run.
 -- ============================================================
 
--- ── Step 0: Inspect existing policies before modifying ────────────────────────
--- Run this query first if you want to inspect existing policy names:
-/*
-SELECT policyname, cmd, roles, qual, with_check
-FROM pg_policies
-WHERE schemaname = 'public'
-  AND tablename  = 'chamak_challo_registrations';
-*/
-
--- ── Step 1: Add participant_count column ──────────────────────────────────────
+-- ── Step 1: Ensure participant_count column exists ────────────────────────────
 ALTER TABLE public.chamak_challo_registrations
   ADD COLUMN IF NOT EXISTS participant_count INTEGER NOT NULL DEFAULT 1;
 
--- Ensure any existing nulls are backfilled to 1
+-- Backfill any nulls
 UPDATE public.chamak_challo_registrations
 SET participant_count = 1
 WHERE participant_count IS NULL;
 
--- ── Step 2: Add check constraint for participant_count (1, 2, or 3) ────────────
+-- ── Step 2: Ensure participant_count check constraint exists ──────────────────
 DO $$
 BEGIN
   IF NOT EXISTS (
@@ -47,20 +44,19 @@ END $$;
 -- ── Step 3: Enable RLS (safe if already enabled) ──────────────────────────────
 ALTER TABLE public.chamak_challo_registrations ENABLE ROW LEVEL SECURITY;
 
--- ── Step 4: Drop existing INSERT policies for anonymous registration ──────────
--- Drop known insert policies safely before creating the updated policy:
+-- ── Step 4: Drop existing INSERT policies ────────────────────────────────────
 DROP POLICY IF EXISTS "Anon can register for chamak challo" ON public.chamak_challo_registrations;
 DROP POLICY IF EXISTS "Allow anon insert chamak_challo_registrations" ON public.chamak_challo_registrations;
 DROP POLICY IF EXISTS "Allow public insert chamak_challo_registrations" ON public.chamak_challo_registrations;
 DROP POLICY IF EXISTS "Enable insert for anon users" ON public.chamak_challo_registrations;
 DROP POLICY IF EXISTS "Public insert chamak_challo_registrations" ON public.chamak_challo_registrations;
 
--- ── Step 5: Create updated INSERT policy with strict plan validation ──────────
--- Permits only the 3 valid group pricing combinations:
---   - Single: participant_count = 1 AND total_amount = 199
---   - Duo   : participant_count = 2 AND total_amount = 179
---   - Trio  : participant_count = 3 AND total_amount = 159
--- And enforces initial status: payment_status = 'pending', confirmation_status = 'not_sent'
+-- ── Step 5: Create corrected INSERT policy ────────────────────────────────────
+-- Permits only the 3 valid per-person combinations:
+--   Single : participant_count = 1 AND total_amount = 199  (1 × ₹199)
+--   Duo    : participant_count = 2 AND total_amount = 358  (2 × ₹179)
+--   Trio   : participant_count = 3 AND total_amount = 477  (3 × ₹159)
+-- Initial statuses are enforced.
 CREATE POLICY "Anon can register for chamak challo"
   ON public.chamak_challo_registrations
   FOR INSERT
@@ -70,8 +66,8 @@ CREATE POLICY "Anon can register for chamak challo"
     AND confirmation_status = 'not_sent'
     AND (
       (participant_count = 1 AND total_amount = 199)
-      OR (participant_count = 2 AND total_amount = 179)
-      OR (participant_count = 3 AND total_amount = 159)
+      OR (participant_count = 2 AND total_amount = 358)
+      OR (participant_count = 3 AND total_amount = 477)
     )
   );
 
@@ -104,7 +100,7 @@ BEGIN
   END IF;
 END $$;
 
--- ── Step 7: Verification Query ────────────────────────────────────────────────
+-- ── Step 7: Verification Queries ──────────────────────────────────────────────
 SELECT
   column_name, data_type, column_default, is_nullable
 FROM information_schema.columns

@@ -56,8 +56,8 @@ const EMPTY_PERSONAL: PersonalData = {
 
 const PLAN_QR_IMAGES: Record<RegistrationPlanId, string> = {
   single: '/images/payment-qr-199.png',
-  duo: '/images/payment-qr-179.png',
-  trio: '/images/payment-qr-159.png',
+  duo: '/images/payment-qr-358.png',
+  trio: '/images/payment-qr-477.png',
 };
 
 export default function Registration() {
@@ -199,8 +199,8 @@ export default function Registration() {
 
       const validPlan =
         (selectedPlan.participantCount === 1 && selectedPlan.totalAmount === 199)
-        || (selectedPlan.participantCount === 2 && selectedPlan.totalAmount === 179)
-        || (selectedPlan.participantCount === 3 && selectedPlan.totalAmount === 159);
+        || (selectedPlan.participantCount === 2 && selectedPlan.totalAmount === 358)
+        || (selectedPlan.participantCount === 3 && selectedPlan.totalAmount === 477);
 
       if (!validPlan) {
         throw new Error('Please select a valid registration option.');
@@ -382,7 +382,7 @@ export default function Registration() {
                   1. Scan the QR code using any UPI app such as GPay, PhonePe or Paytm.
                 </p>
                 <p className="font-body text-[16px] text-[#FFF8EF]/80 font-light">
-                  2. Pay exactly <strong className="text-[#F3CA66] font-semibold">₹{selectedPlan.totalAmount}</strong> for your {selectedPlan.label} registration ({selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'} total).
+                  2. Pay exactly <strong className="text-[#F3CA66] font-semibold">₹{selectedPlan.totalAmount}</strong> for your {selectedPlan.label} registration ({selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'} × ₹{selectedPlan.pricePerPerson}/person).
                 </p>
                 <p className="font-body text-[16px] text-[#FFF8EF]/80 font-light">
                   3. Save your payment receipt screenshot and upload it on the next step.
@@ -581,7 +581,7 @@ export default function Registration() {
               {eventData.venue}
             </p>
             <p className="font-body text-[13px] text-amber-300/90 mt-2 font-medium">
-              Total group pricing · Only the primary registrant fills this form
+              ₹199/₹179/₹159 per person · Only the primary registrant fills this form
             </p>
           </div>
 
@@ -596,7 +596,7 @@ export default function Registration() {
                   Select Registration Option <span className="text-[#F3CA66]">*</span>
                 </label>
                 <span className="text-[12px] text-[#F3CA66] font-semibold uppercase tracking-wider">
-                  Total Group Price
+                  Per Person · Total
                 </span>
               </div>
 
@@ -619,32 +619,47 @@ export default function Registration() {
                           Best Value
                         </span>
                       )}
-                      <div>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <span className="font-display text-[19px] font-bold text-white">
-                            {plan.label}
-                          </span>
-                          <span
-                            className={`w-4 h-4 rounded-full border flex items-center justify-center text-[10px] ${
-                              isSelected
-                                ? 'border-[#F3CA66] bg-[#F3CA66] text-[#0E041E] font-bold'
-                                : 'border-[#F3CA66]/40'
-                            }`}
-                          >
-                            {isSelected ? '✓' : ''}
+                      {/* Card header: plan name + radio */}
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="font-display text-[19px] font-bold text-white">
+                          {plan.label}
+                        </span>
+                        <span
+                          className={`w-4 h-4 rounded-full border flex items-center justify-center text-[10px] ${
+                            isSelected
+                              ? 'border-[#F3CA66] bg-[#F3CA66] text-[#0E041E] font-bold'
+                              : 'border-[#F3CA66]/40'
+                          }`}
+                        >
+                          {isSelected ? '✓' : ''}
+                        </span>
+                      </div>
+
+                      {/* Per-person price — primary prominence */}
+                      <div className="mb-3">
+                        <p className="font-body text-[11px] text-[#F3CA66]/70 uppercase tracking-wider font-semibold mb-0.5">
+                          Per Person
+                        </p>
+                        <span className="font-display text-[26px] font-bold text-[#F3CA66] leading-none">
+                          ₹{plan.pricePerPerson}
+                        </span>
+                      </div>
+
+                      {/* Participant count */}
+                      <p className="font-body text-[12px] text-[#FFF8EF]/60 font-light mb-3">
+                        {plan.participantCount} {plan.participantCount > 1 ? 'participants' : 'participant'}
+                      </p>
+
+                      {/* Total — equal prominence */}
+                      <div className="pt-2.5 border-t border-[#F3CA66]/20 flex items-baseline justify-between">
+                        <div>
+                          <p className="font-body text-[11px] text-[#FFF8EF]/50 uppercase tracking-wider font-semibold mb-0.5">
+                            Total
+                          </p>
+                          <span className="font-display text-[22px] font-bold text-white leading-none">
+                            ₹{plan.totalAmount}
                           </span>
                         </div>
-                        <p className="font-body text-[13px] text-[#FFF8EF]/70 mb-2 font-light">
-                          {plan.participantCount} {plan.participantCount > 1 ? 'Participants' : 'Participant'}
-                        </p>
-                      </div>
-                      <div className="pt-2 border-t border-[#F3CA66]/15 flex items-baseline justify-between">
-                        <span className="font-display text-2xl font-bold text-[#F3CA66]">
-                          ₹{plan.totalAmount}
-                        </span>
-                        <span className="text-[11px] text-[#FFF8EF]/60 font-light">
-                          Total
-                        </span>
                       </div>
                     </button>
                   );
@@ -652,7 +667,7 @@ export default function Registration() {
               </div>
 
               <p className="text-[13px] text-[#FFF8EF]/60 font-light">
-                Selected: <strong className="text-white">{selectedPlan.label}</strong> — Total ₹{selectedPlan.totalAmount} for all {selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'}.
+                Selected: <strong className="text-white">{selectedPlan.label}</strong> — ₹{selectedPlan.pricePerPerson}/person × {selectedPlan.participantCount} = <strong className="text-[#F3CA66]">₹{selectedPlan.totalAmount} total</strong>.
               </p>
             </div>
             <div>

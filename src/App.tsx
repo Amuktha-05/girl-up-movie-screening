@@ -2,7 +2,6 @@ import { BookingProvider } from '@/context/BookingContext';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
-import Attractions from '@/components/Attractions';
 import EventDetails from '@/components/EventDetails';
 import Tickets from '@/components/Tickets';
 import Registration from '@/components/Registration';
@@ -28,7 +27,6 @@ function App() {
         <main>
           <Hero />
           <About />
-          <Attractions />
           <EventDetails />
           <Tickets />
           <Registration />

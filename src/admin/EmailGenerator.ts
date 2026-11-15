@@ -1,10 +1,12 @@
 ﻿import type { Registration, GeneratedEmail } from './types';
 
 export function generateConfirmationEmail(reg: Registration): GeneratedEmail {
+  // participant_count is stored directly; fall back by matching correct per-plan totals
   const count =
     reg.participant_count ??
-    (reg.total_amount === 159 ? 3 : reg.total_amount === 179 ? 2 : 1);
+    (reg.total_amount === 477 ? 3 : reg.total_amount === 358 ? 2 : 1);
   const planType = count === 3 ? 'Trio' : count === 2 ? 'Duo' : 'Single';
+  const pricePerPerson = count === 3 ? 159 : count === 2 ? 179 : 199;
 
   const subject = 'CHAMAK CHALLO Registration Confirmed | Girl Up Andhra University';
 
@@ -19,6 +21,7 @@ Registration Details
 Registration ID   : ${reg.registration_id}
 Name              : ${reg.name}
 Registration Type : ${planType} (${count} ${count > 1 ? 'participants' : 'participant'})
+Price Per Person  : ₹${pricePerPerson}
 Amount Paid       : ₹${reg.total_amount}
 
 Event Details

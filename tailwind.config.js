@@ -60,25 +60,28 @@ export default {
         tricolorWhite: '#FFFFFF',
         tricolorGreen: '#1A7A4C',
 
-        // Admin dashboard — same night-blue foundation
+        // Admin dashboard — restrained navy with muted gold and cool neutral accents
         midnight: {
-          950: '#0C041B',
-          900: '#120727',
-          800: '#1B0C3C',
+          950: '#0A1424',
+          900: '#101F35',
+          800: '#192A42',
+          700: '#223650',
         },
         lavender: {
-          300: '#E4C8FF',
-          400: '#C084FC',
-          500: '#A16CD4',
-          600: '#7949A5',
-          700: '#5C3D86',
-          800: '#341457',
-          900: '#1D0A33',
+          300: '#E6D8B5',
+          400: '#D5BD7D',
+          500: '#B89A52',
+          600: '#927943',
+          700: '#526784',
+          800: '#354A66',
+          900: '#253852',
         },
         cream: {
-          50: '#FFF8EF',
-          200: '#FFF1DE',
-          300: '#E8D9C8',
+          50: '#F5F7FA',
+          100: '#E4EAF2',
+          200: '#D2DAE6',
+          300: '#A8B5C7',
+          700: '#73839A',
         },
         // Legacy palette support
         wine: {

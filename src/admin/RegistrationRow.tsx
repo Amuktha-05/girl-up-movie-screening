@@ -28,9 +28,10 @@ interface Props {
 function getRegistrationDetails(reg: Registration) {
   const count =
     reg.participant_count ??
-    (reg.total_amount === 159 ? 3 : reg.total_amount === 179 ? 2 : 1);
+    (reg.total_amount === 477 ? 3 : reg.total_amount === 358 ? 2 : 1);
   const plan = count === 3 ? 'Trio' : count === 2 ? 'Duo' : 'Single';
-  return { count, plan };
+  const pricePerPerson = count === 3 ? 159 : count === 2 ? 179 : 199;
+  return { count, plan, pricePerPerson };
 }
 
 function PaymentBadge({ status }: { status: Registration['payment_status'] }) {
@@ -206,13 +207,15 @@ export default function RegistrationRow({
 
         {/* Summary */}
         {(() => {
-          const { plan, count } = getRegistrationDetails(reg);
+          const { plan, count, pricePerPerson } = getRegistrationDetails(reg);
           return (
             <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
               <span className="text-cream-300/50">Plan</span>
               <span className="text-cream-100 font-medium">
                 {plan} ({count} {count > 1 ? 'participants' : 'participant'})
               </span>
+              <span className="text-cream-300/50">Per Person</span>
+              <span className="text-cream-100 font-medium">₹{pricePerPerson}</span>
               <span className="text-cream-300/50">Total Amount</span>
               <span className="text-cream-100 font-semibold">₹{reg.total_amount}</span>
             </div>
@@ -348,7 +351,7 @@ export default function RegistrationRow({
 // ── Shared sub-components ─────────────────────────────────────────────────────
 
 function DetailGrid({ reg }: { reg: Registration }) {
-  const { plan, count } = getRegistrationDetails(reg);
+  const { plan, count, pricePerPerson } = getRegistrationDetails(reg);
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-1.5 text-xs mb-3">
       <Field label="Email" value={reg.email} />
@@ -358,6 +361,7 @@ function DetailGrid({ reg }: { reg: Registration }) {
       <Field label="Reg. Number" value={reg.college_registration_number ?? '—'} mono />
       <Field label="UPI Name" value={reg.upi_display_name ?? '—'} />
       <Field label="Registration Plan" value={`${plan} (${count} ${count > 1 ? 'participants' : 'participant'})`} />
+      <Field label="Price Per Person" value={`₹${pricePerPerson}`} />
       <Field label="Total Amount" value={`₹${reg.total_amount}`} />
     </div>
   );

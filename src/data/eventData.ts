@@ -119,12 +119,12 @@ export const faqData = [
   {
     question: 'Who can attend?',
     answer:
-      'CHAMAK CHALLO is open to all Andhra University students. Choose a Single (₹199), Duo (₹179 total) or Trio (₹159 total) pass to attend.',
+      'CHAMAK CHALLO is open to all Andhra University students. Choose a Single (₹199), Duo (₹179/person, ₹358 total) or Trio (₹159/person, ₹477 total) pass to attend.',
   },
   {
     question: 'How do I register?',
     answer:
-      'Registrations are open now! Select your registration plan (Single, Duo or Trio) in the registration section below, complete the UPI payment using the provided QR code, and upload your payment receipt screenshot. Follow our Instagram @girlup.au for live updates.',
+      'Registrations are open now! Select your registration plan (Single ₹199, Duo ₹179/person ₹358 total, or Trio ₹159/person ₹477 total) in the registration section below, complete the UPI payment using the provided QR code, and upload your payment receipt screenshot. Follow our Instagram @girlup.au for live updates.',
   },
   {
     question: 'What should I wear?',

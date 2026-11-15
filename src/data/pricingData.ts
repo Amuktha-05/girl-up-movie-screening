@@ -1,7 +1,7 @@
 ﻿// ============================================================
-// PRICING DATA â€” CHAMAK CHALLO âœ¨
-// Ticket pricing and categories to be confirmed before launch.
-// All prices are in Indian Rupees (â‚¹)
+// PRICING DATA — CHAMAK CHALLO ✨
+// All prices are in Indian Rupees (₹)
+// Prices are PER PERSON. Total = participantCount × pricePerPerson.
 // ============================================================
 
 export interface TicketOption {
@@ -19,32 +19,36 @@ export interface RegistrationPlan {
   id: RegistrationPlanId;
   label: 'Single' | 'Duo' | 'Trio';
   participantCount: 1 | 2 | 3;
-  totalAmount: 199 | 179 | 159;
+  pricePerPerson: 199 | 179 | 159;
+  totalAmount: 199 | 358 | 477;
   summary: string;
 }
 
-/** Group totals, not per-person prices. */
+/** Per-person prices. Total = participantCount × pricePerPerson. */
 export const registrationPlans: RegistrationPlan[] = [
   {
     id: 'single',
     label: 'Single',
     participantCount: 1,
+    pricePerPerson: 199,
     totalAmount: 199,
-    summary: '1 person — ₹199 total',
+    summary: '1 person — ₹199 per person — ₹199 total',
   },
   {
     id: 'duo',
     label: 'Duo',
     participantCount: 2,
-    totalAmount: 179,
-    summary: '2 people — ₹179 total',
+    pricePerPerson: 179,
+    totalAmount: 358,
+    summary: '2 people — ₹179 per person — ₹358 total',
   },
   {
     id: 'trio',
     label: 'Trio',
     participantCount: 3,
-    totalAmount: 159,
-    summary: '3 people — ₹159 total',
+    pricePerPerson: 159,
+    totalAmount: 477,
+    summary: '3 people — ₹159 per person — ₹477 total',
   },
 ];
 
@@ -62,24 +66,22 @@ export const ticketOptions: TicketOption[] = registrationPlans.map((plan) => ({
   name: `${plan.label} registration`,
   price: plan.totalAmount,
   description: plan.summary,
-  perks: ['Entry to CHAMAK CHALLO', 'Total group price'],
+  perks: ['Entry to CHAMAK CHALLO', `₹${plan.pricePerPerson} per person`],
   highlight: plan.id === 'single',
 }));
 
 export const paymentData = {
   payeeName: 'Girl Up Andhra University',
-  // Static uploaded QR image â€” same for all ticket quantities
+  // Fallback static QR image
   qrImage: '/images/payment-qr.png',
   // Dynamic QR images mapped by total amount
   qrImages: {
-    79: '/images/payment-qr-79.png',
-    158: '/images/payment-qr-158.png',
-    237: '/images/payment-qr-237.png',
-    316: '/images/payment-qr-316.png',
+    199: '/images/payment-qr-199.png',
+    358: '/images/payment-qr-358.png',
+    477: '/images/payment-qr-477.png',
   } as Record<number, string>,
 };
 
 export function getPaymentQrImage(totalAmount: number): string {
   return paymentData.qrImages[totalAmount] ?? paymentData.qrImage;
 }
-
