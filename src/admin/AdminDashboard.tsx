@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   Clock,
   XCircle,
+  UserCheck,
 } from 'lucide-react';
 import type { Registration } from './types';
 
@@ -93,12 +94,26 @@ export default function AdminDashboard() {
 
   // â”€â”€ Stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-  const stats = useMemo(() => ({
-    total: registrations.length,
-    pending: registrations.filter((r) => r.payment_status === 'pending').length,
-    verified: registrations.filter((r) => r.payment_status === 'verified').length,
-    rejected: registrations.filter((r) => r.payment_status === 'rejected').length,
-  }), [registrations]);
+  const stats = useMemo(() => {
+    // IST cutoff: 2026-11-15 16:00:00 IST = 2026-11-15 10:30:00 UTC
+    const CUTOFF_UTC = new Date('2026-11-15T10:30:00Z');
+
+    const totalPeople = registrations.reduce((sum, r) => {
+      const createdAt = new Date(r.created_at);
+      // Before cutoff → count as 1 person regardless of participant_count
+      // At or after cutoff → use actual participant_count (default 1 if missing)
+      const people = createdAt < CUTOFF_UTC ? 1 : (r.participant_count ?? 1);
+      return sum + people;
+    }, 0);
+
+    return {
+      total: registrations.length,
+      totalPeople,
+      pending: registrations.filter((r) => r.payment_status === 'pending').length,
+      verified: registrations.filter((r) => r.payment_status === 'verified').length,
+      rejected: registrations.filter((r) => r.payment_status === 'rejected').length,
+    };
+  }, [registrations]);
 
   // â”€â”€ Wrapper callbacks (stable refs via useCallback not needed here â€” already memoized in hook) â”€â”€
 
@@ -154,8 +169,9 @@ export default function AdminDashboard() {
       <main className="px-4 sm:px-6 py-6 space-y-5 max-w-[1600px] mx-auto">
 
         {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <StatCard label="Total" value={stats.total} icon={Users} colorClass="bg-lavender-800/50 text-lavender-300" />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <StatCard label="Total Registrations" value={stats.total} icon={Users} colorClass="bg-lavender-800/50 text-lavender-300" />
+          <StatCard label="Total People" value={stats.totalPeople} icon={UserCheck} colorClass="bg-indigo-900/50 text-indigo-300" />
           <StatCard label="Pending" value={stats.pending} icon={Clock} colorClass="bg-amber-900/40 text-amber-300" />
           <StatCard label="Verified" value={stats.verified} icon={CheckCircle2} colorClass="bg-green-900/40 text-green-300" />
           <StatCard label="Rejected" value={stats.rejected} icon={XCircle} colorClass="bg-red-900/40 text-red-300" />
