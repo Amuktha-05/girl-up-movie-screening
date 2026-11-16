@@ -1,16 +1,16 @@
 // ============================================================
-// EVENT DATA — CHAMAK CHALLO
+// EVENT DATA — VIBRANCE
 // ============================================================
 
 export const eventData = {
   organization: 'Girl Up Andhra University',
   eyebrow: 'GIRL UP ANDHRA UNIVERSITY PRESENTS',
-  title: 'CHAMAK CHALLO',
-  fullTitle: 'CHAMAK CHALLO: A Post-Diwali Celebration of Culture, Unity & Viksit Bharat',
-  tagline: 'One Nation. Diverse Cultures. One Vision for 2047.',
-  taglineSub: 'Under the Viksit Bharat Theme',
-  heroLine: 'One Nation. Diverse Cultures. One Vision for 2047.',
-  heroSupport: 'A celebration of India\'s living culture — music, dance, craft and festive spirit — coming together at Andhra University.',
+  title: 'VIBRANCE',
+  fullTitle: 'VIBRANCE — Celebrating Culture, Inspiring Change',
+  tagline: 'Where Culture Meets Creativity. Where Young Voices Inspire Change.',
+  taglineSub: 'Inspired by Viksit Bharat @2047',
+  heroLine: 'Where Culture Meets Creativity. Where Young Voices Inspire Change.',
+  heroSupport: 'VIBRANCE brings together the energy, creativity and spirit of Andhra University\'s students through cultural performances, music, interactive experiences and activities inspired by the vision of Viksit Bharat @2047.',
   date: 'Wednesday, 18 November 2026',
   dateShort: '18 NOV 2026',
   time: '3:00 PM – 6:00 PM',
@@ -20,128 +20,121 @@ export const eventData = {
 };
 
 export const aboutData = {
-  heading: 'A Celebration of Culture & Unity',
-  body: 'CHAMAK CHALLO is a post-Diwali cultural celebration organised by Girl Up Andhra University, bringing together the diverse traditions, music, dance and festive spirit of India. Under the Viksit Bharat theme, this event is a living tribute to the nation\'s cultural richness — a space where every region, every art form and every voice finds its place.',
+  heading: 'A Celebration of Culture & Change',
+  body: 'VIBRANCE is a student cultural and social awareness programme organised by Girl Up Andhra University. Inspired by the vision of Viksit Bharat @2047, it brings together the diverse traditions, artistic expression, music, dance and creative energy of India — a space where every culture, every voice and every idea finds its stage.',
   pillars: [
     {
       icon: '🎶',
       title: 'Music & Performance',
-      description: 'Bollywood, folk, classical and regional sounds celebrating India\'s extraordinary musical heritage.',
+      description: 'Singing, instrumental and creative performances showcasing India\'s rich and diverse artistic heritage.',
     },
     {
       icon: '💃',
-      title: 'Dance & Movement',
-      description: 'Hook-step challenges, flash mobs, classical performances and an electrifying closing dance night.',
+      title: 'Dance & Expression',
+      description: 'Solo and group performances celebrating India\'s diverse dance traditions and contemporary styles.',
     },
     {
-      icon: '🪔',
-      title: 'Festive Traditions',
-      description: 'Celebrating the festival of lights with Mehendi, traditional attire, craft stalls and cultural games.',
+      icon: '🌍',
+      title: 'Social Awareness',
+      description: 'Interactive activities around women\'s empowerment, youth leadership, social inclusion and community engagement.',
     },
     {
       icon: '🇮🇳',
-      title: 'Viksit Bharat',
-      description: 'Honouring India\'s journey toward 2047 — one nation, diverse cultures, one shared vision.',
+      title: 'Viksit Bharat @2047',
+      description: 'Honouring India\'s journey toward 2047 — one nation, diverse cultures, one shared vision for the future.',
     },
   ],
 };
 
 export const attractionsData = [
   {
-    id: 'shopping',
-    icon: '🛍️',
-    title: 'Festive Bazaar',
-    description: 'Curated stalls showcasing handcrafted goods, regional products and festive finds.',
+    id: 'dance',
+    icon: '💃',
+    title: 'Dance Performances',
+    description: 'Solo and group performances celebrating India\'s diverse dance traditions and contemporary styles.',
     accent: 'terracotta',
+  },
+  {
+    id: 'music',
+    icon: '🎶',
+    title: 'Music & Cultural Performances',
+    description: 'Singing, music and creative performances showcasing India\'s artistic and cultural heritage.',
+    accent: 'wine',
+  },
+  {
+    id: 'openmic',
+    icon: '🎤',
+    title: 'Open Mic — Voices of Change',
+    description: 'A lively platform for students to express their ideas on leadership, equality, youth participation and nation-building.',
+    accent: 'rose',
+  },
+  {
+    id: 'viksitwall',
+    icon: '🇮🇳',
+    title: 'Viksit Bharat Wall',
+    description: 'An interactive space where students can share their ideas, aspirations and commitments towards India\'s development by 2047.',
+    accent: 'gold',
+  },
+  {
+    id: 'awareness',
+    icon: '✊',
+    title: 'Thematic Awareness Stalls',
+    description: 'Engaging student-led activities around women\'s empowerment, youth leadership, farmers\' contributions and social inclusion.',
+    accent: 'teal',
+  },
+  {
+    id: 'foodstalls',
+    icon: '🎪',
+    title: 'Food & Interactive Stalls',
+    description: 'Student-led stalls that encourage creativity, participation and community engagement.',
+    accent: 'wine',
   },
   {
     id: 'photobooth',
     icon: '📸',
-    title: 'Cultural Photo Booth',
-    description: 'Iconic Bollywood and traditional backdrops for Instagram-worthy festive portraits.',
-    accent: 'wine',
-  },
-  {
-    id: 'mehendi',
-    icon: '🌸',
-    title: 'Mehendi & Glam Station',
-    description: 'Mehendi artistry, glitter accents, face gems and festive makeovers.',
-    accent: 'rose',
-  },
-  {
-    id: 'games',
-    icon: '🎯',
-    title: 'Desi Carnival Games',
-    description: 'Cultural trivia, lucky draws, traditional games and Bollywood challenges.',
-    accent: 'gold',
-  },
-  {
-    id: 'bestdressed',
-    icon: '👑',
-    title: 'Mr. & Ms. Chamak Challo',
-    description: 'A celebration of the finest Bollywood-inspired and traditional festive looks.',
-    accent: 'gold',
-  },
-  {
-    id: 'hookstep',
-    icon: '🕺',
-    title: 'Hook-Step Challenge',
-    description: 'Recreate iconic Bollywood dance moves and compete for exciting prizes.',
-    accent: 'teal',
-  },
-  {
-    id: 'flashmob',
-    icon: '⚡',
-    title: 'Surprise Flash Mob',
-    description: 'An unexpected, high-energy Bollywood performance that brings the crowd alive.',
-    accent: 'wine',
-  },
-  {
-    id: 'djnight',
-    icon: '🎧',
-    title: 'DJ & Dance Night',
-    description: 'Non-stop Bollywood, Telugu and Punjabi beats to close the evening.',
+    title: 'Fun Photo Booth',
+    description: 'A dedicated photo booth where students can capture memories with their friends and celebrate the spirit of VIBRANCE.',
     accent: 'teal',
   },
 ];
 
 export const faqData = [
   {
-    question: 'What is CHAMAK CHALLO?',
+    question: 'What is VIBRANCE?',
     answer:
-      'CHAMAK CHALLO is a post-Diwali cultural celebration organised by Girl Up Andhra University. It is an evening of Bollywood music, dance, festive experiences and cultural activities, held under the Viksit Bharat theme.',
+      'VIBRANCE is a student cultural and social awareness programme organised by Girl Up Andhra University. It features cultural performances, music, dance, interactive experiences and awareness activities, all inspired by the vision of Viksit Bharat @2047.',
   },
   {
     question: 'When and where is the event?',
     answer:
-      'CHAMAK CHALLO takes place on Wednesday, 18 November 2026, from 3:00 PM to 6:00 PM, at the North Campus Basketball Court, Andhra University, Visakhapatnam.',
+      'VIBRANCE takes place on Wednesday, 18 November 2026, from 3:00 PM to 6:00 PM, at the North Campus Basketball Court, Andhra University, Visakhapatnam.',
   },
   {
     question: 'Who can attend?',
     answer:
-      'CHAMAK CHALLO is open to all Andhra University students. Choose a Single (₹199), Duo (₹179/person, ₹358 total) or Trio (₹159/person, ₹477 total) pass to attend.',
+      'VIBRANCE is open to all Andhra University students. Individual Entry is currently available at a limited-time special offer of JUST ₹120 per participant.',
   },
   {
     question: 'How do I register?',
     answer:
-      'Registrations are open now! Select your registration plan (Single ₹199, Duo ₹179/person ₹358 total, or Trio ₹159/person ₹477 total) in the registration section below, complete the UPI payment using the provided QR code, and upload your payment receipt screenshot. Follow our Instagram @girlup.au for live updates.',
+      'Registrations are open now! Complete your details in the registration section below, pay JUST ₹120 via UPI using the provided QR code, and upload your payment receipt screenshot. This special offer is available for a limited time. Follow our Instagram @girlup.au for live updates.',
   },
   {
     question: 'What should I wear?',
     answer:
-      'Come in your best Bollywood-inspired or traditional festive outfit. There is a Best Dressed competition — dress to celebrate.',
+      'Come in your best traditional, cultural or festive outfit. Express your style and celebrate India\'s diversity!',
   },
   {
     question: 'What can I expect at the event?',
     answer:
-      'The evening includes a festive bazaar, cultural photo booth, Mehendi & glam station, carnival games, a Best Dressed competition, a Bollywood hook-step challenge, a surprise flash mob and a closing DJ & dance night.',
+      'The event features dance performances, music and cultural acts, an open mic, a Viksit Bharat Wall, thematic awareness stalls, food and interactive stalls, and a fun photo booth.',
   },
 ];
 
 export const footerData = {
   organization: 'Girl Up Andhra University',
-  eventName: 'CHAMAK CHALLO',
-  eventSubtitle: 'A Post-Diwali Celebration of Culture, Unity & Viksit Bharat',
+  eventName: 'VIBRANCE',
+  eventSubtitle: 'Celebrating Culture, Inspiring Change',
   tagline: 'Empowering voices. Creating change.',
   instagram: 'https://www.instagram.com/girlup.au/',
   instagramHandle: '@girlup.au',

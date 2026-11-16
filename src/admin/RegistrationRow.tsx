@@ -29,9 +29,27 @@ function getRegistrationDetails(reg: Registration) {
   const count =
     reg.participant_count ??
     (reg.total_amount === 477 ? 3 : reg.total_amount === 358 ? 2 : 1);
-  const plan = count === 3 ? 'Trio' : count === 2 ? 'Duo' : 'Single';
-  const pricePerPerson = count === 3 ? 159 : count === 2 ? 179 : 199;
-  return { count, plan, pricePerPerson };
+  const isIndividual =
+    reg.total_amount === 120 || (count === 1 && reg.total_amount !== 199 && reg.total_amount !== 175);
+  const plan =
+    isIndividual
+      ? 'Individual Entry'
+      : count === 3
+      ? 'Trio'
+      : count === 2
+      ? 'Duo'
+      : 'Single';
+  const pricePerPerson =
+    reg.total_amount === 120
+      ? 120
+      : count === 3
+      ? 159
+      : count === 2
+      ? 179
+      : count === 1
+      ? reg.total_amount
+      : Math.round(reg.total_amount / count);
+  return { count, plan, pricePerPerson, isIndividual };
 }
 
 function PaymentBadge({ status }: { status: Registration['payment_status'] }) {
@@ -207,12 +225,12 @@ export default function RegistrationRow({
 
         {/* Summary */}
         {(() => {
-          const { plan, count, pricePerPerson } = getRegistrationDetails(reg);
+          const { plan, count, pricePerPerson, isIndividual } = getRegistrationDetails(reg);
           return (
             <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
               <span className="text-cream-300/50">Plan</span>
               <span className="text-cream-100 font-medium">
-                {plan} ({count} {count > 1 ? 'participants' : 'participant'})
+                {isIndividual ? 'Individual Entry — ₹120' : `${plan} (${count} ${count > 1 ? 'participants' : 'participant'})`}
               </span>
               <span className="text-cream-300/50">Per Person</span>
               <span className="text-cream-100 font-medium">₹{pricePerPerson}</span>
@@ -279,10 +297,10 @@ export default function RegistrationRow({
         {/* Plan */}
         <td className="px-3 py-3 whitespace-nowrap">
           {(() => {
-            const { plan, count } = getRegistrationDetails(reg);
+            const { plan, count, isIndividual } = getRegistrationDetails(reg);
             return (
               <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-lavender-900/40 text-lavender-300 border border-lavender-600/40">
-                {plan} · {count}p
+                {isIndividual ? 'Individual Entry — ₹120' : `${plan} · ${count}p`}
               </span>
             );
           })()}
@@ -351,7 +369,7 @@ export default function RegistrationRow({
 // ── Shared sub-components ─────────────────────────────────────────────────────
 
 function DetailGrid({ reg }: { reg: Registration }) {
-  const { plan, count, pricePerPerson } = getRegistrationDetails(reg);
+  const { plan, count, pricePerPerson, isIndividual } = getRegistrationDetails(reg);
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-1.5 text-xs mb-3">
       <Field label="Email" value={reg.email} />
@@ -360,7 +378,10 @@ function DetailGrid({ reg }: { reg: Registration }) {
       <Field label="Department" value={reg.department ?? '—'} />
       <Field label="Reg. Number" value={reg.college_registration_number ?? '—'} mono />
       <Field label="UPI Name" value={reg.upi_display_name ?? '—'} />
-      <Field label="Registration Plan" value={`${plan} (${count} ${count > 1 ? 'participants' : 'participant'})`} />
+      <Field
+        label="Registration Plan"
+        value={isIndividual ? 'Individual Entry — ₹120' : `${plan} (${count} ${count > 1 ? 'participants' : 'participant'})`}
+      />
       <Field label="Price Per Person" value={`₹${pricePerPerson}`} />
       <Field label="Total Amount" value={`₹${reg.total_amount}`} />
     </div>

@@ -3,8 +3,8 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'About', href: '#about' },
-  { label: 'Experiences', href: '#attractions' },
   { label: 'Details', href: '#details' },
+  { label: 'Passes', href: '#tickets' },
   { label: 'FAQ', href: '#faq' },
 ];
 

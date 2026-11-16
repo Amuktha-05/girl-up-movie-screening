@@ -1,11 +1,7 @@
 ﻿import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import Reveal from '@/components/Reveal';
 import { eventData } from '@/data/eventData';
-import {
-  getRegistrationPlan,
-  registrationPlans,
-  type RegistrationPlanId,
-} from '@/data/pricingData';
+import { TICKET_PRICE, PAYMENT_QR_IMAGE } from '@/data/pricingData';
 import { supabase } from '@/lib/supabase';
 import {
   ArrowRight,
@@ -13,6 +9,7 @@ import {
   PartyPopper,
   AlertCircle,
   ChevronLeft,
+  Sparkles,
 } from 'lucide-react';
 import { MandalaMotif } from './FestiveMotifs';
 
@@ -41,7 +38,7 @@ function generateRegistrationId(): string {
     suffix += chars[Math.floor(Math.random() * chars.length)];
   }
 
-  return `CHC-${suffix}`;
+  return `VIB-${suffix}`;
 }
 
 const EMPTY_PERSONAL: PersonalData = {
@@ -54,21 +51,11 @@ const EMPTY_PERSONAL: PersonalData = {
   collegeRegistrationNumber: '',
 };
 
-const PLAN_QR_IMAGES: Record<RegistrationPlanId, string> = {
-  single: '/images/payment-qr-199.png',
-  duo: '/images/payment-qr-358.png',
-  trio: '/images/payment-qr-477.png',
-};
-
 export default function Registration() {
   const [stage, setStage] = useState<Stage>('form');
-  const [paymentSubStep, setPaymentSubStep] =
-    useState<PaymentSubStep>('qr');
+  const [paymentSubStep, setPaymentSubStep] = useState<PaymentSubStep>('qr');
 
-  const [personal, setPersonal] =
-    useState<PersonalData>(EMPTY_PERSONAL);
-  const [planId, setPlanId] = useState<RegistrationPlanId>('single');
-  const selectedPlan = getRegistrationPlan(planId);
+  const [personal, setPersonal] = useState<PersonalData>(EMPTY_PERSONAL);
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
@@ -197,16 +184,7 @@ export default function Registration() {
 
       uploadedFilePath = filePath;
 
-      const validPlan =
-        (selectedPlan.participantCount === 1 && selectedPlan.totalAmount === 199)
-        || (selectedPlan.participantCount === 2 && selectedPlan.totalAmount === 358)
-        || (selectedPlan.participantCount === 3 && selectedPlan.totalAmount === 477);
-
-      if (!validPlan) {
-        throw new Error('Please select a valid registration option.');
-      }
-
-      // 2. Save this registration in the CHAMAK CHALLO table.
+      // 2. Save this registration in the database table (1 participant, ₹120 total).
       const { error: insertError } = await supabase
         .from('chamak_challo_registrations')
         .insert({
@@ -220,8 +198,8 @@ export default function Registration() {
             personal.collegeRegistrationNumber.trim(),
           upi_display_name: personal.upiDisplayName.trim(),
           payment_screenshot: filePath,
-          participant_count: selectedPlan.participantCount,
-          total_amount: selectedPlan.totalAmount,
+          participant_count: 1,
+          total_amount: TICKET_PRICE,
           payment_status: 'pending',
           confirmation_status: 'not_sent',
         });
@@ -230,8 +208,6 @@ export default function Registration() {
         throw new Error(`Registration could not be saved: ${insertError.message}`);
       }
 
-      // No confirmation email is sent here.
-      // The admin team sends it only after verifying the payment.
       setRegistrationId(registrationCode);
       setStage('success');
     } catch (error: unknown) {
@@ -242,9 +218,7 @@ export default function Registration() {
 
       setSubmitError(message);
 
-      // Keep the uploaded screenshot if the database insert failed.
-      // This avoids accidentally deleting a file that may need investigation.
-      console.error('CHAMAK CHALLO registration error:', {
+      console.error('Registration submission error:', {
         message,
         uploadedFilePath,
       });
@@ -257,7 +231,6 @@ export default function Registration() {
     setStage('form');
     setPaymentSubStep('qr');
     setPersonal(EMPTY_PERSONAL);
-    setPlanId('single');
     setErrors({});
     setScreenshotFile(null);
     setFileName(null);
@@ -320,10 +293,10 @@ export default function Registration() {
                 <SummaryRow label="Name" value={personal.fullName} />
                 <SummaryRow label="Email" value={personal.email} />
                 <SummaryRow label="Phone" value={personal.phone} />
-                <SummaryRow label="Event" value="CHAMAK CHALLO" />
-                <SummaryRow label="Registration Type" value={selectedPlan.label} />
-                <SummaryRow label="Participants" value={String(selectedPlan.participantCount)} />
-                <SummaryRow label="Total Amount" value={`₹${selectedPlan.totalAmount}`} />
+                <SummaryRow label="Event" value="VIBRANCE" />
+                <SummaryRow label="Registration Type" value="Individual Entry" />
+                <SummaryRow label="Participants" value="1" />
+                <SummaryRow label="Total Amount" value={`₹${TICKET_PRICE}`} />
                 <SummaryRow label="Payment Status" value="Pending verification" />
               </div>
             </div>
@@ -363,15 +336,18 @@ export default function Registration() {
                 Complete Your Payment
               </h2>
 
-              <div className="jewel-chip inline-block px-7 py-5 rounded-xl text-center">
-                <p className="font-body text-[14px] text-[#F3CA66] uppercase tracking-wider mb-1 font-semibold">
-                  {selectedPlan.label} Pass ({selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'Participants' : 'Participant'})
+              <div className="jewel-chip inline-block px-7 py-5 rounded-2xl text-center border border-[#F3CA66]/40 bg-[#1e0e38]/90 shadow-xl shadow-[#F3CA66]/15">
+                <span className="inline-block px-3 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#FF6F1E] text-white mb-2 shadow-sm">
+                  LIMITED-TIME SPECIAL OFFER
+                </span>
+                <p className="font-body text-[13px] text-[#F3CA66] uppercase tracking-wider font-semibold">
+                  Individual Entry Pass
                 </p>
-                <p className="font-display text-4xl text-white font-semibold">
-                  ₹{selectedPlan.totalAmount}
+                <p className="font-display text-4xl font-extrabold text-white my-1">
+                  JUST <span className="text-[#F3CA66]">₹{TICKET_PRICE}</span>
                 </p>
-                <p className="font-body text-[13px] text-[#FFF8EF]/65 mt-1 font-light">
-                  Total group price for all {selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'members' : 'member'}
+                <p className="font-body text-[13px] text-[#FFF8EF]/75 font-light">
+                  Your entry to VIBRANCE at an exclusive special price!
                 </p>
               </div>
             </div>
@@ -382,7 +358,7 @@ export default function Registration() {
                   1. Scan the QR code using any UPI app such as GPay, PhonePe or Paytm.
                 </p>
                 <p className="font-body text-[16px] text-[#FFF8EF]/80 font-light">
-                  2. Pay exactly <strong className="text-[#F3CA66] font-semibold">₹{selectedPlan.totalAmount}</strong> for your {selectedPlan.label} registration ({selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'} × ₹{selectedPlan.pricePerPerson}/person).
+                  2. Pay exactly <strong className="text-[#F3CA66] font-semibold">JUST ₹{TICKET_PRICE}</strong> for your Individual Entry registration.
                 </p>
                 <p className="font-body text-[16px] text-[#FFF8EF]/80 font-light">
                   3. Save your payment receipt screenshot and upload it on the next step.
@@ -392,8 +368,8 @@ export default function Registration() {
               <div className="flex flex-col items-center mb-8">
                 <div className="p-4 bg-white rounded-2xl mb-4 shadow-xl border border-[#F3CA66]/40">
                   <img
-                    src={PLAN_QR_IMAGES[planId]}
-                    alt={`CHAMAK CHALLO ${selectedPlan.label} Plan UPI Payment QR Code`}
+                    src={PAYMENT_QR_IMAGE}
+                    alt="VIBRANCE Individual Entry UPI Payment QR Code"
                     className="w-56 h-56 object-contain"
                   />
                 </div>
@@ -402,7 +378,7 @@ export default function Registration() {
                   Payee: <strong className="text-[#F3CA66]">Girl Up Andhra University</strong>
                 </p>
                 <p className="font-body text-[13px] text-[#FFF8EF]/60 text-center mt-1">
-                  Amount: <strong className="text-white">₹{selectedPlan.totalAmount} Total</strong> ({selectedPlan.label})
+                  Amount: <strong className="text-white">JUST ₹{TICKET_PRICE}</strong> (Limited-Time Special Offer)
                 </p>
               </div>
 
@@ -447,15 +423,19 @@ export default function Registration() {
                 Upload Payment Receipt
               </h2>
 
-              <div className="jewel-chip inline-block px-6 py-4 rounded-xl text-center">
-                <p className="font-body text-[14px] text-[#F3CA66] uppercase tracking-wider mb-1 font-semibold">
+              <div className="jewel-chip inline-block px-7 py-5 rounded-2xl text-center border border-[#F3CA66]/40 bg-[#1e0e38]/90 shadow-xl shadow-[#F3CA66]/15">
+                <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#FF6F1E] text-white mb-2 shadow-sm">
+                  <Sparkles className="w-3 h-3 text-white" />
+                  LIMITED-TIME SPECIAL OFFER
+                </span>
+                <p className="font-body text-[13px] text-[#F3CA66] uppercase tracking-wider mb-0.5 font-semibold">
                   Amount to Pay
                 </p>
-                <p className="font-display text-3xl text-white font-semibold">
-                  ₹{selectedPlan.totalAmount}
+                <p className="font-display text-3xl sm:text-4xl text-white font-extrabold my-1">
+                  JUST <span className="text-[#F3CA66]">₹{TICKET_PRICE}</span>
                 </p>
-                <p className="font-body text-[12px] text-[#FFF8EF]/65 mt-0.5">
-                  {selectedPlan.label} · {selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'} (Total)
+                <p className="font-body text-[12px] text-[#FFF8EF]/75">
+                  Individual Entry · Full Festival Access
                 </p>
               </div>
             </div>
@@ -513,7 +493,7 @@ export default function Registration() {
                 />
 
                 <span className="font-body text-[15px] sm:text-[16px] text-[#FFF8EF]/85 leading-relaxed font-light">
-                  I have completed the ₹{selectedPlan.totalAmount} UPI payment for {selectedPlan.label} registration ({selectedPlan.participantCount} {selectedPlan.participantCount > 1 ? 'participants' : 'participant'}) and attached the authentic payment screenshot.
+                  I have completed the ₹{TICKET_PRICE} UPI payment for Individual Entry and attached the authentic payment screenshot.
                 </span>
               </label>
 
@@ -529,7 +509,7 @@ export default function Registration() {
                 disabled={!confirmed || !screenshotFile || submitting}
                 className="btn-primary w-full justify-center text-[16px] py-4 disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                {submitting ? 'Submitting Registration…' : 'CONFIRM & SUBMIT REGISTRATION'}
+                {submitting ? 'Submitting Registration…' : `Grab Your Entry Now — JUST ₹${TICKET_PRICE}`}
                 {!submitting && <ArrowRight className="w-4 h-4" />}
               </button>
 
@@ -560,16 +540,19 @@ export default function Registration() {
           <StepBar stepIndex={stepIndex} />
 
           <div className="text-center mb-8">
-            <span className="section-eyebrow block mb-3">
-              Participant Details
-            </span>
+            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full mb-3.5 bg-[#FF6F1E]/20 border border-[#FF6F1E]/50 shadow-md">
+              <Sparkles className="w-4 h-4 text-[#FF6F1E]" />
+              <span className="font-body font-bold text-[12px] sm:text-[13px] tracking-wider text-[#FFA24C] uppercase">
+                LIMITED-TIME SPECIAL OFFER
+              </span>
+            </div>
 
-            <h2 className="font-display text-4xl sm:text-5xl font-semibold text-[#FFF8EF] mb-3 text-balance">
-              Register for Chamak Challo
+            <h2 className="font-display text-4xl sm:text-5xl font-semibold text-[#FFF8EF] mb-2 text-balance">
+              Register for VIBRANCE
             </h2>
 
-            <p className="font-body text-[17px] text-[#FFF8EF]/75 font-light">
-              Select your pass option and provide primary registrant details.
+            <p className="font-body text-[16px] sm:text-[17px] text-[#FFF8EF]/80 font-light max-w-md mx-auto">
+              Your entry to VIBRANCE at an exclusive special price!
             </p>
           </div>
 
@@ -580,8 +563,8 @@ export default function Registration() {
             <p className="font-body text-[14px] text-[#FFF8EF]/80 mt-1">
               {eventData.venue}
             </p>
-            <p className="font-body text-[13px] text-amber-300/90 mt-2 font-medium">
-              ₹199/₹179/₹159 per person · Only the primary registrant fills this form
+            <p className="font-body text-[13px] text-amber-300 font-medium mt-2">
+              Limited-Time Special Offer — JUST ₹{TICKET_PRICE} · Full Festival Access
             </p>
           </div>
 
@@ -589,87 +572,36 @@ export default function Registration() {
             onSubmit={handlePersonalSubmit}
             className="festive-panel rounded-2xl p-7 sm:p-10 space-y-6 shadow-2xl"
           >
-            {/* Registration Option Selector */}
-            <div className="space-y-3 pb-2 border-b border-[#F3CA66]/15">
-              <div className="flex items-center justify-between">
-                <label className="block text-[15px] font-medium text-[#FFF8EF] tracking-wide">
-                  Select Registration Option <span className="text-[#F3CA66]">*</span>
-                </label>
-                <span className="text-[12px] text-[#F3CA66] font-semibold uppercase tracking-wider">
-                  Per Person · Total
+            {/* Individual Registration Pass Card — Limited-Time Special Offer */}
+            <div className="relative p-5 sm:p-6 rounded-2xl border-2 border-[#F3CA66]/60 bg-gradient-to-br from-[#24124e] to-[#160a33] shadow-xl shadow-[#F3CA66]/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-[#FF6F1E] text-white shadow-sm">
+                    LIMITED-TIME SPECIAL OFFER
+                  </span>
+                </div>
+                <span className="font-display text-[22px] font-bold text-white block">
+                  Individual Entry Pass
                 </span>
+                <p className="font-body text-[14px] text-[#FFF8EF]/80 font-light mt-0.5">
+                  Your entry to VIBRANCE at an exclusive special price!
+                </p>
+                <p className="font-body text-[12px] text-[#FFF8EF]/60 font-light mt-1">
+                  This special offer is available for a limited time. Register now and be part of the celebration!
+                </p>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                {registrationPlans.map((plan) => {
-                  const isSelected = plan.id === planId;
-                  return (
-                    <button
-                      key={plan.id}
-                      type="button"
-                      onClick={() => setPlanId(plan.id)}
-                      className={`relative p-4 rounded-xl text-left transition-all duration-200 border flex flex-col justify-between ${
-                        isSelected
-                          ? 'bg-[#201048] border-[#F3CA66] shadow-lg shadow-[#F3CA66]/20 ring-1 ring-[#F3CA66]'
-                          : 'bg-[#14082B]/80 border-[#F3CA66]/25 hover:border-[#F3CA66]/60 hover:bg-[#1A0B36]'
-                      }`}
-                    >
-                      {plan.id === 'trio' && (
-                        <span className="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FF6F1E] text-white tracking-wider uppercase shadow-sm">
-                          Best Value
-                        </span>
-                      )}
-                      {/* Card header: plan name + radio */}
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="font-display text-[19px] font-bold text-white">
-                          {plan.label}
-                        </span>
-                        <span
-                          className={`w-4 h-4 rounded-full border flex items-center justify-center text-[10px] ${
-                            isSelected
-                              ? 'border-[#F3CA66] bg-[#F3CA66] text-[#0E041E] font-bold'
-                              : 'border-[#F3CA66]/40'
-                          }`}
-                        >
-                          {isSelected ? '✓' : ''}
-                        </span>
-                      </div>
-
-                      {/* Per-person price — primary prominence */}
-                      <div className="mb-3">
-                        <p className="font-body text-[11px] text-[#F3CA66]/70 uppercase tracking-wider font-semibold mb-0.5">
-                          Per Person
-                        </p>
-                        <span className="font-display text-[26px] font-bold text-[#F3CA66] leading-none">
-                          ₹{plan.pricePerPerson}
-                        </span>
-                      </div>
-
-                      {/* Participant count */}
-                      <p className="font-body text-[12px] text-[#FFF8EF]/60 font-light mb-3">
-                        {plan.participantCount} {plan.participantCount > 1 ? 'participants' : 'participant'}
-                      </p>
-
-                      {/* Total — equal prominence */}
-                      <div className="pt-2.5 border-t border-[#F3CA66]/20 flex items-baseline justify-between">
-                        <div>
-                          <p className="font-body text-[11px] text-[#FFF8EF]/50 uppercase tracking-wider font-semibold mb-0.5">
-                            Total
-                          </p>
-                          <span className="font-display text-[22px] font-bold text-white leading-none">
-                            ₹{plan.totalAmount}
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
+              <div className="sm:text-right shrink-0 border-t sm:border-t-0 pt-3 sm:pt-0 border-[#F3CA66]/20 flex sm:flex-col items-baseline sm:items-end justify-between">
+                <div>
+                  <span className="font-display text-3xl sm:text-4xl font-extrabold text-[#F3CA66] block leading-none">
+                    JUST ₹{TICKET_PRICE}
+                  </span>
+                  <p className="text-[12px] text-[#FFF8EF]/70 font-light mt-1 uppercase tracking-wider">
+                    Per Participant
+                  </p>
+                </div>
               </div>
-
-              <p className="text-[13px] text-[#FFF8EF]/60 font-light">
-                Selected: <strong className="text-white">{selectedPlan.label}</strong> — ₹{selectedPlan.pricePerPerson}/person × {selectedPlan.participantCount} = <strong className="text-[#F3CA66]">₹{selectedPlan.totalAmount} total</strong>.
-              </p>
             </div>
+
             <div>
               <label className="block text-[15px] font-medium text-[#FFF8EF] mb-2 tracking-wide">
                 Full Name <span className="text-[#F3CA66]">*</span>
@@ -796,10 +728,10 @@ export default function Registration() {
 
             <button
               type="submit"
-              className="btn-primary w-full justify-center text-[16px] py-4 rounded-xl mt-4"
+              className="btn-primary w-full justify-center text-[16px] py-4 rounded-xl mt-4 group shadow-lg shadow-[#FF6F1E]/25"
             >
-              Continue to Payment (₹{selectedPlan.totalAmount} Total)
-              <ArrowRight className="w-4 h-4" />
+              Grab Your Entry Now — JUST ₹{TICKET_PRICE}
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
           </form>
         </Reveal>

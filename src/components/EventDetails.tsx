@@ -8,7 +8,7 @@ const details = [
     icon: CalendarDays,
     label: 'Date',
     value: eventData.date,
-    detail: 'Wednesday · Post-Diwali Celebration',
+    detail: 'Wednesday · Cultural & Youth Celebration',
   },
   {
     icon: Clock,
@@ -65,7 +65,7 @@ export default function EventDetails() {
                 <div className="gold-rule mt-4" />
               </div>
               <p className="font-body text-[17px] sm:text-[18px] text-[#FFF8EF]/80 font-light max-w-md leading-relaxed">
-                Join us at the open-air court for an unforgettable night of Bollywood beats, festive food, and cultural unity.
+                Join us at the open-air court for an inspiring evening of music, dance, creative expression, and social awareness.
               </p>
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function EventDetails() {
                   Organised by Girl Up Andhra University
                 </p>
                 <p className="font-body text-[15px] text-[#2E1502]/85 font-medium">
-                  Open-air event at AU North Campus Basketball Court. Wear your best festive or Bollywood attire!
+                  Open-air event at AU North Campus Basketball Court. Wear your best traditional, festive or cultural attire!
                 </p>
               </div>
             </div>

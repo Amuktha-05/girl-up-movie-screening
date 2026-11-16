@@ -78,20 +78,8 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* ── EVENT NAME: CHAMAK CHALLO ── */}
+        {/* ── EVENT NAME: VIBRANCE ── */}
         <div className="space-y-0 mb-6 animate-fade-up" style={{ animationDelay: '0.1s' }}>
-          <h1
-            className="font-display font-light text-[#FFF8EF] tracking-tight block"
-            style={{
-              fontSize: 'clamp(3.6rem, 11vw, 8.5rem)',
-              lineHeight: 0.9,
-              letterSpacing: '-0.01em',
-              textShadow: '0 0 42px rgba(110, 170, 255, 0.45), 0 0 18px rgba(255, 220, 150, 0.2)',
-            }}
-          >
-            CHAMAK
-          </h1>
-          {/* Vertical bright-yellow-to-deep-orange gradient highlight */}
           <h1
             className="font-display font-semibold tracking-tight heading-highlight block"
             style={{
@@ -101,13 +89,13 @@ export default function Hero() {
               filter: 'drop-shadow(0 6px 28px rgba(240, 76, 30, 0.4))',
             }}
           >
-            CHALLO
+            VIBRANCE
           </h1>
         </div>
 
         {/* Ornate Divider with Subtitle */}
         <div className="w-full max-w-2xl my-4 animate-fade-up" style={{ animationDelay: '0.2s' }}>
-          <OrnateDivider subtitle="A Post-Diwali Celebration of Culture, Unity & Viksit Bharat" />
+          <OrnateDivider subtitle="Celebrating Culture, Inspiring Change" />
         </div>
 
         {/* Tagline */}

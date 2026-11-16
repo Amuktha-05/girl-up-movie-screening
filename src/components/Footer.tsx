@@ -3,7 +3,6 @@ import { footerData } from '@/data/eventData';
 
 const navLinks = [
   { label: 'About the Festival', href: '#about' },
-  { label: 'Festive Experiences', href: '#attractions' },
   { label: 'Schedule & Venue', href: '#details' },
   { label: 'Entry Pass Registration', href: '#register' },
   { label: 'FAQ', href: '#faq' },
@@ -121,7 +120,7 @@ export default function Footer() {
             &copy; 2026 {footerData.organization}. All rights reserved.
           </p>
           <p className="font-body text-[14px] text-[#FFFFFF]/50 font-light">
-            CHAMAK CHALLO &mdash; A Post-Diwali Celebration
+            VIBRANCE &mdash; Celebrating Culture, Inspiring Change
           </p>
         </div>
       </div>

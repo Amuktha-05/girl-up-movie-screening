@@ -139,7 +139,7 @@ export default function AdminDashboard() {
           </div>
           <div className="min-w-0">
             <h1 className="text-sm font-semibold text-cream-50 truncate">Admin Dashboard</h1>
-            <p className="text-[10px] text-cream-300/40 truncate">Girl Up AU Â· CHAMAK CHALLO âœ¨</p>
+            <p className="text-[10px] text-cream-300/40 truncate">Girl Up AU · VIBRANCE ✨</p>
           </div>
         </div>
         <div className="flex items-center gap-2 shrink-0">

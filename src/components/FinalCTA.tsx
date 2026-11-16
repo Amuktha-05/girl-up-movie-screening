@@ -78,13 +78,13 @@ export default function FinalCTA() {
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="#register" className="btn-primary group w-full sm:w-auto text-[16px] px-9 py-4">
-              Register Now
+              Grab Your Entry Now
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </div>
 
           <p className="font-body text-[14px] text-[#FFF8EF]/50 mt-8 tracking-widest uppercase">
-            Girl Up Andhra University &mdash; CHAMAK CHALLO 2026
+            Girl Up Andhra University &mdash; VIBRANCE 2026
           </p>
         </Reveal>
       </div>

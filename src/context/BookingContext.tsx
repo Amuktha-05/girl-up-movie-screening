@@ -20,7 +20,7 @@ const BookingContext = createContext<BookingContextValue | null>(null);
 
 export function BookingProvider({ children }: { children: ReactNode }) {
   const [selection, setSelection] = useState<BookingSelection>({
-    ticketId: 'single',
+    ticketId: 'individual',
     ticketQty: 1,
   });
 

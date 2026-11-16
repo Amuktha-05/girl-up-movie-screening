@@ -1,6 +1,6 @@
 import Reveal from '@/components/Reveal';
 import { eventData } from '@/data/eventData';
-import { Bell, ArrowRight, CheckCircle2, Ticket } from 'lucide-react';
+import { Bell, ArrowRight, CheckCircle2, Ticket, Sparkles } from 'lucide-react';
 import { CornerFiligree, MandalaMotif } from './FestiveMotifs';
 
 export default function Tickets() {
@@ -32,7 +32,7 @@ export default function Tickets() {
             </h2>
             <div className="gold-rule mx-auto my-4" />
             <p className="font-body text-[17px] sm:text-[18px] text-[#FFF8EF]/80 font-light max-w-xl mx-auto leading-relaxed">
-              CHAMAK CHALLO is an open-air celebration welcoming Andhra University students, friends, and festive enthusiasts.
+              VIBRANCE is an open-air youth celebration welcoming Andhra University students, friends, and cultural enthusiasts.
             </p>
           </div>
         </Reveal>
@@ -44,20 +44,46 @@ export default function Tickets() {
             <CornerFiligree className="absolute bottom-4 right-4 w-12 h-12 opacity-50" style={{ transform: 'scale(-1)' }} />
 
             <div className="text-center max-w-2xl mx-auto">
-              {/* Badge */}
-              <div className="jewel-chip inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6">
-                <Ticket className="w-4 h-4 text-[#F3CA66]" />
-                <span className="font-body font-semibold text-[14px] tracking-wider text-[#F3CA66] uppercase">
-                  Official Entry Pass
+              {/* Badges: Offer + Entry Pass */}
+              <div className="flex flex-wrap items-center justify-center gap-2.5 mb-5">
+                <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#FF6F1E]/20 border border-[#FF6F1E]/50 shadow-md shadow-[#FF6F1E]/15">
+                  <Sparkles className="w-4 h-4 text-[#FF6F1E]" />
+                  <span className="font-body font-bold text-[12px] sm:text-[13px] tracking-wider text-[#FFA24C] uppercase">
+                    LIMITED-TIME SPECIAL OFFER
+                  </span>
+                </div>
+                <div className="jewel-chip inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full">
+                  <Ticket className="w-3.5 h-3.5 text-[#F3CA66]" />
+                  <span className="font-body font-semibold text-[13px] tracking-wider text-[#F3CA66] uppercase">
+                    Official Entry Pass
+                  </span>
+                </div>
+              </div>
+
+              {/* Main Headline */}
+              <h3 className="font-display text-[26px] sm:text-[34px] font-semibold text-[#FFFFFF] mb-4 leading-tight text-balance">
+                A Celebration This Special. An Entry This Affordable.
+              </h3>
+
+              {/* Price Callout */}
+              <div className="jewel-chip inline-flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 px-6 sm:px-8 py-3.5 rounded-2xl mb-4 border border-[#F3CA66]/40 bg-[#1e0e38]/90 shadow-xl shadow-[#F3CA66]/15">
+                <span className="font-body text-[13px] sm:text-[14px] text-[#F3CA66] font-semibold uppercase tracking-widest">
+                  Individual Entry Pass
+                </span>
+                <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#F3CA66]/50" />
+                <span className="font-display text-3xl sm:text-4xl font-extrabold text-[#FFFFFF]">
+                  JUST <span className="text-[#F3CA66]">₹120</span>
                 </span>
               </div>
 
-              {/* Title & Description */}
-              <h3 className="font-display text-[28px] sm:text-[34px] font-semibold text-[#FFFFFF] mb-4">
-                Registrations Are Now Open!
-              </h3>
-              <p className="font-body text-[17px] text-[#FFF8EF]/80 font-light mb-9 leading-relaxed max-w-lg mx-auto">
-                Choose your participation plan and complete your registration to secure your entry to CHAMAK CHALLO 2026.
+              {/* Supporting Text */}
+              <p className="font-body text-[17px] sm:text-[18px] text-[#FFF8EF]/95 font-medium mb-1.5 max-w-lg mx-auto leading-relaxed">
+                Your entry to VIBRANCE at an exclusive special price!
+              </p>
+
+              {/* Small Supporting Line */}
+              <p className="font-body text-[14px] text-[#FFF8EF]/65 font-light mb-9 max-w-md mx-auto leading-relaxed">
+                This special offer is available for a limited time. Register now and be part of the celebration!
               </p>
 
               {/* Included Highlights Grid */}
@@ -65,17 +91,17 @@ export default function Tickets() {
                 {[
                   {
                     title: 'Full Festival Access',
-                    desc: 'Festive Bazaar, carnival games, photo booths & Mehendi station.',
+                    desc: 'Dance performances, cultural acts, open mic & creative stalls.',
                     tone: 'border-[#7EB6FF]/40 bg-[#142454]/80',
                   },
                   {
-                    title: 'Live DJ & Dance Night',
-                    desc: 'Bollywood, Telugu & Punjabi beats on the open court.',
+                    title: 'Live Music & Dance',
+                    desc: 'Classical, folk, contemporary & youth performances on stage.',
                     tone: 'border-[#FF4DB8]/40 bg-[#3a1448]/75',
                   },
                   {
-                    title: 'Contests & Awards',
-                    desc: 'Mr. & Ms. Chamak Challo, hook-step challenge & giveaways.',
+                    title: 'Interactive Experiences',
+                    desc: 'Viksit Bharat Wall, thematic awareness stalls & Fun Photo Booth.',
                     tone: 'border-[#FFB020]/45 bg-[#3a2410]/80',
                   },
                 ].map((item) => (
@@ -116,10 +142,10 @@ export default function Tickets() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href="#register"
-                  className="btn-primary w-full sm:w-auto"
+                  className="btn-primary w-full sm:w-auto text-[16px] px-8 py-3.5 group shadow-lg shadow-[#FF6F1E]/25"
                 >
-                  Enter Registration Form
-                  <ArrowRight className="w-4 h-4" />
+                  Grab Your Entry Now
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
                 <a
                   href="https://www.instagram.com/girlup.au/"
