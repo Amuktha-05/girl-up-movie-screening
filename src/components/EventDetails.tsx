@@ -125,9 +125,10 @@ export default function EventDetails() {
             </div>
             <a
               href="#register"
-              className="px-7 py-3 rounded-xl bg-[#120727] hover:bg-[#1B0C3C] text-[#F3CA66] font-semibold text-[15px] whitespace-nowrap self-stretch sm:self-auto text-center transition-all duration-200 shadow-md"
+              className="px-6 py-3 rounded-xl bg-red-950/80 hover:bg-red-900 border border-red-500/40 text-red-200 font-bold text-[13px] sm:text-[14px] uppercase tracking-wider whitespace-nowrap self-stretch sm:self-auto text-center transition-all duration-200 shadow-md inline-flex items-center justify-center gap-2"
             >
-              Get Entry Pass
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              Registrations Closed
             </a>
           </div>
         </Reveal>

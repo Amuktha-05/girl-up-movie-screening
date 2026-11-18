@@ -76,9 +76,10 @@ export default function Navbar() {
           ))}
           <a
             href="#register"
-            className="btn-primary text-[15px] px-6 py-2.5 rounded-xl font-semibold"
+            className="px-5 py-2 rounded-xl text-[12px] sm:text-[13px] font-bold tracking-wider uppercase bg-red-950/70 border border-red-500/50 text-red-200 hover:bg-red-900/70 transition-all shadow-sm flex items-center gap-2"
           >
-            Register Now
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            Registrations Closed
           </a>
         </div>
 
@@ -117,9 +118,10 @@ export default function Navbar() {
           <a
             href="#register"
             onClick={() => setOpen(false)}
-            className="btn-primary text-center text-[16px] mt-5 py-3.5"
+            className="text-center text-[14px] font-bold tracking-wider uppercase mt-5 py-3 rounded-xl bg-red-950/70 border border-red-500/50 text-red-200 hover:bg-red-900/70 transition-all flex items-center justify-center gap-2"
           >
-            Register Now
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            Registrations Closed
           </a>
         </div>
       </div>

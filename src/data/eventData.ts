@@ -117,7 +117,7 @@ export const faqData = [
   {
     question: 'How do I register?',
     answer:
-      'Registrations are open now! Complete your details in the registration section below, pay JUST ₹120 via UPI using the provided QR code, and upload your payment receipt screenshot. This special offer is available for a limited time. Follow our Instagram @girlup.au for live updates.',
+      'Online registrations for VIBRANCE 2026 are now closed. Thank you for the overwhelming response! If you haven\'t registered yet, you may enquire about spot registration at the venue. Spot registrations are subject to availability and confirmation by the organising team.',
   },
   {
     question: 'What should I wear?',

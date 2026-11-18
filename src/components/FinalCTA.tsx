@@ -77,11 +77,19 @@ export default function FinalCTA() {
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#register" className="btn-primary group w-full sm:w-auto text-[16px] px-9 py-4">
-              Grab Your Entry Now
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <a
+              href="#register"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-[15px] sm:text-[16px] uppercase tracking-wider bg-red-950/70 border border-red-500/50 text-red-100 hover:bg-red-900/70 transition-all shadow-lg shadow-red-950/40 inline-flex items-center justify-center gap-2.5"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+              Registrations Closed
+              <ArrowRight className="w-4 h-4 opacity-70" />
             </a>
           </div>
+
+          <p className="font-body text-[14px] sm:text-[15px] text-[#FFF8EF]/80 font-light mt-4 max-w-md mx-auto">
+            Online registrations are now closed. Spot registrations at the venue are subject to availability.
+          </p>
 
           <p className="font-body text-[14px] text-[#FFF8EF]/50 mt-8 tracking-widest uppercase">
             Girl Up Andhra University &mdash; VIBRANCE 2026

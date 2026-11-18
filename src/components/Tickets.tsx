@@ -44,12 +44,12 @@ export default function Tickets() {
             <CornerFiligree className="absolute bottom-4 right-4 w-12 h-12 opacity-50" style={{ transform: 'scale(-1)' }} />
 
             <div className="text-center max-w-2xl mx-auto">
-              {/* Badges: Offer + Entry Pass */}
+              {/* Badges: Closed + Entry Pass */}
               <div className="flex flex-wrap items-center justify-center gap-2.5 mb-5">
-                <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#FF6F1E]/20 border border-[#FF6F1E]/50 shadow-md shadow-[#FF6F1E]/15">
-                  <Sparkles className="w-4 h-4 text-[#FF6F1E]" />
-                  <span className="font-body font-bold text-[12px] sm:text-[13px] tracking-wider text-[#FFA24C] uppercase">
-                    LIMITED-TIME SPECIAL OFFER
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-950/70 border border-red-500/50 shadow-md shadow-red-950/40">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                  <span className="font-body font-bold text-[12px] sm:text-[13px] tracking-wider text-red-200 uppercase">
+                    REGISTRATIONS CLOSED
                   </span>
                 </div>
                 <div className="jewel-chip inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full">
@@ -76,15 +76,15 @@ export default function Tickets() {
                 </span>
               </div>
 
-              {/* Supporting Text */}
-              <p className="font-body text-[17px] sm:text-[18px] text-[#FFF8EF]/95 font-medium mb-1.5 max-w-lg mx-auto leading-relaxed">
-                Your entry to VIBRANCE at an exclusive special price!
-              </p>
-
-              {/* Small Supporting Line */}
-              <p className="font-body text-[14px] text-[#FFF8EF]/65 font-light mb-9 max-w-md mx-auto leading-relaxed">
-                This special offer is available for a limited time. Register now and be part of the celebration!
-              </p>
+              {/* Registrations Closed Notice */}
+              <div className="p-5 rounded-2xl bg-red-950/60 border border-red-500/40 text-center max-w-xl mx-auto my-5 shadow-lg">
+                <p className="font-display text-[18px] sm:text-[20px] font-semibold text-red-100 mb-2">
+                  Online registrations for VIBRANCE 2026 are now closed.
+                </p>
+                <p className="font-body text-[14px] sm:text-[15px] text-[#FFF8EF]/85 font-light leading-relaxed">
+                  Thank you for the overwhelming response! If you haven't registered yet, you may enquire about spot registration at the venue. Spot registrations are subject to availability and confirmation by the organising team.
+                </p>
+              </div>
 
               {/* Included Highlights Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 text-left">
@@ -142,10 +142,11 @@ export default function Tickets() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href="#register"
-                  className="btn-primary w-full sm:w-auto text-[16px] px-8 py-3.5 group shadow-lg shadow-[#FF6F1E]/25"
+                  className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-[14px] sm:text-[15px] uppercase tracking-wider bg-red-950/70 border border-red-500/50 text-red-100 hover:bg-red-900/70 transition-all shadow-lg shadow-red-950/40 inline-flex items-center justify-center gap-2"
                 >
-                  Grab Your Entry Now
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  Registrations Closed — Spot Enquiries
+                  <ArrowRight className="w-4 h-4 opacity-70" />
                 </a>
                 <a
                   href="https://www.instagram.com/girlup.au/"
